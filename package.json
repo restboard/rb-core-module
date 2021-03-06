@@ -1,7 +1,7 @@
 {
   "name": "rb-core-module",
   "version": "0.2.0",
-  "description": "Core module for Restboard",
+  "description": "The Restboard core module",
   "main": "index.js",
   "scripts": {
     "test": "tap"
