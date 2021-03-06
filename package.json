@@ -4,7 +4,7 @@
   "description": "Core module for Restboard",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/zuck/rb-core#readme",
   "dependencies": {
     "humanize-string": "^2.1.0"
+  },
+  "devDependencies": {
+    "tap": "^14.11.0"
   }
 }

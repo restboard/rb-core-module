@@ -5,7 +5,11 @@ Core module for [Restboard](https://github.com/zuck/restboard)
 ## Development
 
 ```bash
+# Install dependencies
 npm install
+
+# Run tests
+npm test
 ```
 
 ## Contribute
