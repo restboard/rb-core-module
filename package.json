@@ -1,5 +1,5 @@
 {
-  "name": "rb-core",
+  "name": "rb-core-module",
   "version": "0.1.0",
   "description": "Core module for Restboard",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zuck/rb-core.git"
+    "url": "git+https://github.com/restboard/rb-core-module.git"
   },
   "keywords": [
     "restboard",
@@ -18,9 +18,9 @@
   "author": "Emanuele Bertoldi <emanuele.bertoldi@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zuck/rb-core/issues"
+    "url": "https://github.com/restboard/rb-core-module/issues"
   },
-  "homepage": "https://github.com/zuck/rb-core#readme",
+  "homepage": "https://github.com/restboard/rb-core-module#readme",
   "dependencies": {
     "humanize-string": "^2.1.0"
   },

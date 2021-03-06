@@ -1,6 +1,6 @@
-# rb-core
+# rb-core-module
 
-Core module for [Restboard](https://github.com/zuck/restboard)
+The [Restboard](https://github.com/zuck/restboard) core module
 
 ## Development
 
@@ -22,7 +22,7 @@ If you want, you can also freely donate to fund the project development:
 
 Please open a new issue on:
 
-https://github.com/zuck/rb-core/issues
+https://github.com/restboard/rb-core-module/issues
 
 ## License
 
