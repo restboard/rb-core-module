@@ -1,7 +1,10 @@
 import { ERR_NOT_IMPLEMENTED } from "./errors";
 
 export class RbDataProvider {
-  async getMany(resource, params) {
+  async getMany(
+    resource,
+    { filters = {}, sort = "", order = "", offset = 0, limit = null } = {}
+  ) {
     throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
