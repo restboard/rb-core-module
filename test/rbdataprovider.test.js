@@ -4,7 +4,7 @@ import { RbDataProvider, errors } from "../src/index";
 const { ERR_NOT_IMPLEMENTED } = errors;
 
 t.test("RbDataProvider", async (t) => {
-  t.test("calling getMany on base class", async (t) => {
+  t.test("calling `getMany` on base class", async (t) => {
     const provider = new RbDataProvider();
     try {
       await provider.getMany("test");
@@ -18,7 +18,7 @@ t.test("RbDataProvider", async (t) => {
     }
   });
 
-  t.test("calling getOne on base class", async (t) => {
+  t.test("calling `getOne` on base class", async (t) => {
     const provider = new RbDataProvider();
     try {
       await provider.getOne("test", {});
@@ -32,7 +32,7 @@ t.test("RbDataProvider", async (t) => {
     }
   });
 
-  t.test("calling createOne on base class", async (t) => {
+  t.test("calling `createOne` on base class", async (t) => {
     const provider = new RbDataProvider();
     try {
       await provider.createOne("test", {});
@@ -46,7 +46,7 @@ t.test("RbDataProvider", async (t) => {
     }
   });
 
-  t.test("calling updateOne on base class", async (t) => {
+  t.test("calling `updateOne` on base class", async (t) => {
     const provider = new RbDataProvider();
     try {
       await provider.updateOne("test", {});
@@ -60,7 +60,7 @@ t.test("RbDataProvider", async (t) => {
     }
   });
 
-  t.test("calling deleteOne on base class", async (t) => {
+  t.test("calling `deleteOne` on base class", async (t) => {
     const provider = new RbDataProvider();
     try {
       await provider.deleteOne("test", {});
