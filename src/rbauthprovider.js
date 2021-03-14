@@ -9,6 +9,10 @@ export class RbAuthProvider {
     throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
+  async checkAuth() {
+    throw new Error(ERR_NOT_IMPLEMENTED);
+  }
+
   async getIdentity(user) {
     throw new Error(ERR_NOT_IMPLEMENTED);
   }

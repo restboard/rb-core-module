@@ -32,6 +32,20 @@ t.test("RbAuthProvider", async (t) => {
     }
   });
 
+  t.test("calling `checkAuth` on base class", async (t) => {
+    const provider = new RbAuthProvider();
+    try {
+      await provider.checkAuth();
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
+    } catch (err) {
+      t.equal(
+        err.message,
+        ERR_NOT_IMPLEMENTED,
+        `should throw ${ERR_NOT_IMPLEMENTED}`
+      );
+    }
+  });
+
   t.test("calling `getIdentity` on base class", async (t) => {
     const provider = new RbAuthProvider();
     try {
