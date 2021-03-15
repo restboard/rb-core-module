@@ -346,4 +346,74 @@ t.test("createResource", async (t) => {
       t.error(err, "should not throw any error");
     }
   });
+
+  t.test('creating an instance passing an "icon" option', async (t) => {
+    const opts = {
+      name: "test",
+      provider: new RbDataProvider(),
+      icon: "group"
+    };
+    try {
+      const resource = createResource(opts);
+      t.equal(
+        resource.icon,
+        opts.icon,
+        'should set resource.icon to the value of the passed "icon" option'
+      );
+    } catch (err) {
+      console.error(err);
+      t.error(err, "should not throw any error");
+    }
+  });
+
+  t.test('creating an instance passing a "displayAttr" option', async (t) => {
+    const opts = {
+      name: "test",
+      provider: new RbDataProvider(),
+      displayAttr: "name"
+    };
+    const instance = {
+      name: 'Test #1'
+    }
+    try {
+      const resource = createResource(opts);
+      const res = resource.stringify(instance)
+      t.equal(
+        resource.displayAttr,
+        opts.displayAttr,
+        'should set resource.displayAttr to the value of the passed "displayAttr" option'
+      );
+      t.equal(
+        res,
+        instance.name,
+        'should use the passed "displayAttr" to create a textual representation of the resource instance'
+      );
+    } catch (err) {
+      console.error(err);
+      t.error(err, "should not throw any error");
+    }
+  });
+
+  t.test('creating an instance passing a "stringify" function option', async (t) => {
+    const opts = {
+      name: "test",
+      provider: new RbDataProvider(),
+      stringify: data => data.name.toUpperCase()
+    };
+    const instance = {
+      name: 'Test #1'
+    }
+    try {
+      const resource = createResource(opts);
+      const res = resource.stringify(instance)
+      t.equal(
+        res,
+        instance.name.toUpperCase(),
+        'should use the passed "stringify" function to create a textual representation of the resource instance'
+      );
+    } catch (err) {
+      console.error(err);
+      t.error(err, "should not throw any error");
+    }
+  });
 });

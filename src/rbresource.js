@@ -40,6 +40,9 @@ export class RbResource {
 
     this.key = opts.key || "id";
     this.label = opts.label || humanizeString(this.name);
+    this.icon = opts.icon;
+    this.displayAttr = opts.displayAttr;
+    this.stringify = opts.stringify || (data => `${data[this.displayAttr || this.key]}`);
 
     const _baseJsonSchema = _createJsonSchema();
     const _defaultSchema = _createJsonSchema({
