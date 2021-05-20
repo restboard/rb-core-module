@@ -57,7 +57,7 @@ export class RbResource {
     this.label = label || humanizeString(this.name)
     this.icon = icon
     this.displayAttr = displayAttr
-    this.stringify = stringify || (data => `${data[this.displayAttr || this.key]}`)
+    this.stringify = stringify || (data => data && `${data[this.displayAttr || this.key]}`)
 
     const _defaultSchema = _createJsonSchema({
       [this.key]: { type: 'integer' }
