@@ -46,7 +46,8 @@ export class RbResource {
       schema,
       updateSchema,
       createSchema,
-      columns
+      columns,
+      isKeyEditable
     } = opts
 
     this.name = name
@@ -64,7 +65,10 @@ export class RbResource {
     const _schema = schema || updateSchema || createSchema || _defaultSchema
 
     const _baseJsonSchema = JSON.parse(JSON.stringify(_schema))
-    delete _baseJsonSchema.properties[this.key]
+
+    if (!isKeyEditable) {
+      delete _baseJsonSchema.properties[this.key]
+    }
 
     this.createSchema = createSchema || _baseJsonSchema
     this.updateSchema = updateSchema || _baseJsonSchema
