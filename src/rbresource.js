@@ -37,6 +37,7 @@ export class RbResource {
 
     const {
       name,
+      path,
       provider,
       key,
       label,
@@ -51,6 +52,7 @@ export class RbResource {
     } = opts
 
     this.name = name
+    this.path = path || name
     this.provider = provider
 
     this.key = key || 'id'
@@ -77,23 +79,23 @@ export class RbResource {
   }
 
   async getMany (params) {
-    return this.provider.getMany(this.name, params)
+    return this.provider.getMany(this.path, params)
   }
 
   async getOne ({ id }) {
-    return this.provider.getOne(this.name, { id })
+    return this.provider.getOne(this.path, { id })
   }
 
   async createOne (data) {
-    return this.provider.createOne(this.name, data)
+    return this.provider.createOne(this.path, data)
   }
 
   async updateOne ({ id, ...data }) {
-    return this.provider.createOne(this.name, { id, ...data })
+    return this.provider.createOne(this.path, { id, ...data })
   }
 
   async deleteOne ({ id }) {
-    return this.provider.deleteOne(this.name, { id })
+    return this.provider.deleteOne(this.path, { id })
   }
 }
 
