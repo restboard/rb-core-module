@@ -24,32 +24,30 @@ function _columnsFromSchema (schema = {}) {
 }
 
 export class RbResource {
-  constructor (opts = {}) {
-    if (!opts.name) {
+  constructor ({
+    name,
+    path,
+    provider,
+    key,
+    label,
+    icon,
+    displayAttr,
+    stringify,
+    schema,
+    updateSchema,
+    createSchema,
+    columns,
+    isKeyEditable
+  } = {}) {
+    if (!name) {
       throw new Error(ERR_MISSING_RESOURCE_NAME)
     }
-    if (!opts.provider) {
+    if (!provider) {
       throw new Error(ERR_MISSING_RESOURCE_DATA_PROVIDER)
     }
-    if (!(opts.provider instanceof RbDataProvider)) {
+    if (!(provider instanceof RbDataProvider)) {
       throw new Error(ERR_INVALID_RESOURCE_DATA_PROVIDER)
     }
-
-    const {
-      name,
-      path,
-      provider,
-      key,
-      label,
-      icon,
-      displayAttr,
-      stringify,
-      schema,
-      updateSchema,
-      createSchema,
-      columns,
-      isKeyEditable
-    } = opts
 
     this.name = name
     this.path = path || name
@@ -91,7 +89,7 @@ export class RbResource {
   }
 
   async updateOne ({ id, ...data }) {
-    return this.provider.createOne(this.path, { id, ...data })
+    return this.provider.updateOne(this.path, { id, ...data })
   }
 
   async deleteOne ({ id }) {
