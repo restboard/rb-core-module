@@ -2,25 +2,25 @@ import { ERR_NOT_IMPLEMENTED } from './errors'
 
 export class RbDataProvider {
   async getMany (
-    resource,
+    resourcePath,
     { filters = {}, sort = '', order = '', offset = 0, limit = null } = {}
   ) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async getOne (resource, { id }) {
+  async getOne (resourcePath, { id }) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async createOne (resource, data) {
+  async createOne (resourcePath, data) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async updateOne (resource, { id, ...data }) {
+  async updateOne (resourcePath, { id, ...data }) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async deleteOne (resource, { id }) {
+  async deleteOne (resourcePath, { id }) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 }
