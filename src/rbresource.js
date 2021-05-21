@@ -37,6 +37,7 @@ export class RbResource {
     updateSchema,
     createSchema,
     columns,
+    defaultParams,
     isKeyEditable
   } = {}) {
     if (!name) {
@@ -51,6 +52,7 @@ export class RbResource {
 
     this.name = name
     this.path = path || name
+    this.defaultParams = defaultParams || {}
     this.provider = provider
 
     this.key = key || 'id'
@@ -77,7 +79,10 @@ export class RbResource {
   }
 
   async getMany (params) {
-    return this.provider.getMany(this.path, params)
+    return this.provider.getMany(this.path, {
+      ...this.defaultParams,
+      ...params
+    })
   }
 
   async getOne ({ id }) {
