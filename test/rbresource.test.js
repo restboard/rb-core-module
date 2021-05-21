@@ -77,6 +77,43 @@ t.test('createResource', async (t) => {
     }
   })
 
+  t.test('creating an instance without passing a "path" option', async (t) => {
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider()
+    }
+    try {
+      const resource = createResource(opts)
+      t.equal(
+        resource.path,
+        opts.name,
+        'should assign the passed "name" option as "path"'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
+
+  t.test('creating an instance passing a "path" option', async (t) => {
+    const opts = {
+      name: 'test',
+      path: 'products',
+      provider: new RbDataProvider()
+    }
+    try {
+      const resource = createResource(opts)
+      t.equal(
+        resource.path,
+        opts.path,
+        'should use the passed "path" option'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
+
   t.test('creating an instance without passing a "key"', async (t) => {
     const opts = {
       name: 'test',
