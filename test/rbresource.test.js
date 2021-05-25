@@ -440,4 +440,39 @@ t.test('createResource', async (t) => {
       t.error(err, 'should not throw any error')
     }
   })
+
+  t.test('creating an instance passing a "defaultParams" object', async (t) => {
+    let res = ''
+    class DummyDataProvider extends RbDataProvider {
+      async getMany (resource, params) {
+        res = params
+        return { data: [] }
+      }
+    }
+    const opts = {
+      name: 'test',
+      provider: new DummyDataProvider(),
+      defaultParams: {
+        filters: {
+          category: 1
+        }
+      }
+    }
+    try {
+      const resource = createResource(opts)
+      await resource.getMany({ foo: 'bar', filters: { name: 'test' } })
+      const expected = {
+        foo: 'bar',
+        filters: { category: 1, name: 'test' }
+      }
+      t.same(
+        res,
+        expected,
+        'should merge the given params with default ones'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
 })

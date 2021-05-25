@@ -76,10 +76,14 @@ export class RbResource {
     this.columns = columns || _columnsFromSchema(_schema)
   }
 
-  async getMany (params) {
+  async getMany (params = {}) {
     return this.provider.getMany(this.path, {
       ...this.defaultParams,
-      ...params
+      ...params,
+      filters: {
+        ...this.defaultParams.filters,
+        ...params.filters
+      }
     })
   }
 
