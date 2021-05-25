@@ -195,12 +195,12 @@ t.test('createResource', async (t) => {
     }
     try {
       const resource = createResource(opts)
-      t.deepEqual(
+      t.same(
         resource.createSchema,
         emptyJsonSchema,
         'should set resource.createSchema to an empty JSON schema'
       )
-      t.deepEqual(
+      t.same(
         resource.updateSchema,
         emptyJsonSchema,
         'should set resource.updateSchema to an empty JSON schema'
@@ -231,12 +231,12 @@ t.test('createResource', async (t) => {
     }
     try {
       const resource = createResource(opts)
-      t.deepEqual(
+      t.same(
         resource.createSchema,
         expected,
         'should set resource.createSchema to the value of the passed "schema" option'
       )
-      t.deepEqual(
+      t.same(
         resource.updateSchema,
         expected,
         'should set resource.updateSchema to the value of the passed "schema" option'
@@ -261,7 +261,7 @@ t.test('createResource', async (t) => {
     }
     try {
       const resource = createResource(opts)
-      t.deepEqual(
+      t.same(
         resource.createSchema,
         opts.createSchema,
         'should set resource.createSchema to the value of the passed "screateSchema" option'
@@ -286,7 +286,7 @@ t.test('createResource', async (t) => {
     }
     try {
       const resource = createResource(opts)
-      t.deepEqual(
+      t.same(
         resource.updateSchema,
         opts.updateSchema,
         'should set resource.updateSchema to the value of the passed "updateSchema" option'
