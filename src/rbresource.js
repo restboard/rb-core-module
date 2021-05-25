@@ -30,7 +30,6 @@ export class RbResource {
     provider,
     key,
     label,
-    icon,
     displayAttr,
     stringify,
     schema,
@@ -57,7 +56,6 @@ export class RbResource {
 
     this.key = key || 'id'
     this.label = label || humanizeString(this.name)
-    this.icon = icon
     this.displayAttr = displayAttr
     this.stringify = stringify || (data => data && `${data[this.displayAttr || this.key]}`)
 

@@ -390,25 +390,6 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing an "icon" option', async (t) => {
-    const opts = {
-      name: 'test',
-      provider: new RbDataProvider(),
-      icon: 'group'
-    }
-    try {
-      const resource = createResource(opts)
-      t.equal(
-        resource.icon,
-        opts.icon,
-        'should set resource.icon to the value of the passed "icon" option'
-      )
-    } catch (err) {
-      console.error(err)
-      t.error(err, 'should not throw any error')
-    }
-  })
-
   t.test('creating an instance passing a "displayAttr" option', async (t) => {
     const opts = {
       name: 'test',
