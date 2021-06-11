@@ -17,6 +17,10 @@ export class RbAuthProvider {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
+  async getTenantIdentity (user) {
+    throw new Error(ERR_NOT_IMPLEMENTED)
+  }
+
   async can (user, route) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
