@@ -99,6 +99,10 @@ export class RbResource {
     return this.provider.updateOne(this.path, { id, ...data })
   }
 
+  async updateMany (data) {
+    return this.provider.updateMany(this.path, data)
+  }
+
   async deleteOne ({ id }) {
     return this.provider.deleteOne(this.path, { id })
   }
