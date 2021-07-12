@@ -37,7 +37,8 @@ export class RbResource {
     createSchema,
     columns,
     defaultParams,
-    isKeyEditable
+    isKeyEditable,
+    relations
   } = {}) {
     if (!name) {
       throw new Error(ERR_MISSING_RESOURCE_NAME)
@@ -74,6 +75,7 @@ export class RbResource {
     this.updateSchema = updateSchema || _baseJsonSchema
 
     this.columns = columns || _columnsFromSchema(_schema)
+    this.relations = relations || new Map()
   }
 
   async getMany (params = {}) {
@@ -105,6 +107,41 @@ export class RbResource {
 
   async deleteOne ({ id }) {
     return this.provider.deleteOne(this.path, { id })
+  }
+
+  related (id, name) {
+    if (!(name in this.relations)) {
+      return null
+    }
+    const {
+      path,
+      provider,
+      key,
+      label,
+      displayAttr,
+      stringify,
+      updateSchema,
+      createSchema,
+      columns,
+      defaultParams,
+      isKeyEditable,
+      relations
+    } = this.relations[name]
+    return new RbResource({
+      name,
+      path: `${this.path}/${id}/${path}`,
+      provider,
+      key,
+      label,
+      displayAttr,
+      stringify,
+      updateSchema,
+      createSchema,
+      columns,
+      defaultParams,
+      isKeyEditable,
+      relations
+    })
   }
 }
 

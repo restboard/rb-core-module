@@ -475,4 +475,29 @@ t.test('createResource', async (t) => {
       t.error(err, 'should not throw any error')
     }
   })
+
+  t.test('creating an instance passing a "relations" object', async (t) => {
+    const tags = createResource({
+      name: 'tags',
+      provider: new RbDataProvider()
+    })
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider(),
+      relations: { tags }
+    }
+    try {
+      const resource = createResource(opts)
+      const relatedResource = resource.related(1, tags.name)
+      const expected = 'test/1/tags'
+      t.same(
+        relatedResource.path,
+        expected,
+        'should use the correct related resource endpoint'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
 })
