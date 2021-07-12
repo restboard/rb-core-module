@@ -20,6 +20,10 @@ export class RbDataProvider {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
+  async updateMany (resourcePath, data) {
+    throw new Error(ERR_NOT_IMPLEMENTED)
+  }
+
   async deleteOne (resourcePath, { id }) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
