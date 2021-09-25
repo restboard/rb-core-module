@@ -60,6 +60,20 @@ t.test('RbDataProvider', async (t) => {
     }
   })
 
+  t.test('calling `updateMany` on base class', async (t) => {
+    const provider = new RbDataProvider()
+    try {
+      await provider.updateMany('test', {})
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+    } catch (err) {
+      t.equal(
+        err.message,
+        ERR_NOT_IMPLEMENTED,
+        `should throw ${ERR_NOT_IMPLEMENTED}`
+      )
+    }
+  })
+
   t.test('calling `deleteOne` on base class', async (t) => {
     const provider = new RbDataProvider()
     try {
