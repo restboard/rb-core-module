@@ -23,6 +23,21 @@ function _columnsFromSchema (schema = {}) {
   }))
 }
 
+function _bindActionsToResource (actions, resource) {
+  if (!actions) {
+    return actions
+  }
+  for (const actionName in actions) {
+    const action = actions[actionName]
+    if (action.run) {
+      actions[actionName].run = action.run.bind(resource)
+    } else {
+      actions[actionName] = action.bind(resource)
+    }
+  }
+  return actions
+}
+
 export class RbResource {
   constructor ({
     name,
@@ -38,7 +53,8 @@ export class RbResource {
     columns,
     defaultParams,
     isKeyEditable,
-    relations
+    relations,
+    actions
   } = {}) {
     if (!name) {
       throw new Error(ERR_MISSING_RESOURCE_NAME)
@@ -76,6 +92,7 @@ export class RbResource {
 
     this.columns = columns || _columnsFromSchema(_schema)
     this.relations = relations || new Map()
+    this.actions = _bindActionsToResource(actions || {}, this)
   }
 
   async getMany (params = {}) {
@@ -125,7 +142,8 @@ export class RbResource {
       columns,
       defaultParams,
       isKeyEditable,
-      relations
+      relations,
+      actions
     } = this.relations[name]
     return new RbResource({
       name,
@@ -140,7 +158,8 @@ export class RbResource {
       columns,
       defaultParams,
       isKeyEditable,
-      relations
+      relations,
+      actions
     })
   }
 }

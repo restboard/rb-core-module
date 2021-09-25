@@ -500,4 +500,23 @@ t.test('createResource', async (t) => {
       t.error(err, 'should not throw any error')
     }
   })
+
+  t.test('creating an instance passing an "actions" object', async (t) => {
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider(),
+      actions: {
+        foo () { return this }
+      }
+    }
+    try {
+      const resource = createResource(opts)
+      t.ok('foo' in resource.actions, 'should have registered the given actions')
+      const res = resource.actions.foo()
+      t.equal(res, resource, 'should have bound `this` to the current action resource')
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
 })
