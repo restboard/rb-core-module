@@ -169,5 +169,6 @@ export function createResource (opts) {
 }
 
 export default {
+  RbResource,
   createResource
 }
