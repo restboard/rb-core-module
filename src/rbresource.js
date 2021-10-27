@@ -95,6 +95,14 @@ export class RbResource {
     this.actions = _bindActionsToResource(actions || {}, this)
   }
 
+  getKey (instance) {
+    if (instance && this.key in instance) {
+      return instance[this.key]
+    }
+
+    return null
+  }
+
   async getMany (params = {}) {
     return this.provider.getMany(this.path, {
       ...this.defaultParams,
