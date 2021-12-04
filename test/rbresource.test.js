@@ -500,6 +500,11 @@ t.test('createResource', async t => {
       actions: {
         foo () {
           return this
+        },
+        bar: {
+          run () {
+            return this
+          }
         }
       }
     }
@@ -509,11 +514,17 @@ t.test('createResource', async t => {
         'foo' in resource.actions,
         'should have registered the given actions'
       )
-      const res = resource.actions.foo()
+      const fooRes = resource.actions.foo()
       t.equal(
-        res,
+        fooRes,
         resource,
-        'should have bound `this` to the current action resource'
+        'should have bound `this` to the passed action function resource'
+      )
+      const barRes = resource.actions.bar.run()
+      t.equal(
+        barRes,
+        resource,
+        'should have bound `this` to the passed action object resource'
       )
     } catch (err) {
       console.error(err)
