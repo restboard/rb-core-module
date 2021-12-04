@@ -7,8 +7,8 @@ const {
   ERR_INVALID_RESOURCE_DATA_PROVIDER
 } = errors
 
-t.test('createResource', async (t) => {
-  t.test('creating an instance without passing resource name', async (t) => {
+t.test('createResource', async t => {
+  t.test('creating a resource without passing resource name', async t => {
     try {
       createResource()
       t.fail(`should throw ${ERR_MISSING_RESOURCE_NAME}`)
@@ -21,7 +21,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance without passing a data provider', async (t) => {
+  t.test('creating a resource without passing a data provider', async t => {
     const opts = {
       name: 'test'
     }
@@ -37,7 +37,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing an invalid data provider', async (t) => {
+  t.test('creating a resource passing an invalid data provider', async t => {
     const opts = {
       name: 'test',
       provider: {}
@@ -54,7 +54,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a valid data provider', async (t) => {
+  t.test('creating a resource passing a valid data provider', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider()
@@ -77,7 +77,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance without passing a "path" option', async (t) => {
+  t.test('creating a resource without passing a "path" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider()
@@ -95,7 +95,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "path" option', async (t) => {
+  t.test('creating a resource passing a "path" option', async t => {
     const opts = {
       name: 'test',
       path: 'products',
@@ -103,18 +103,14 @@ t.test('createResource', async (t) => {
     }
     try {
       const resource = createResource(opts)
-      t.equal(
-        resource.path,
-        opts.path,
-        'should use the passed "path" option'
-      )
+      t.equal(resource.path, opts.path, 'should use the passed "path" option')
     } catch (err) {
       console.error(err)
       t.error(err, 'should not throw any error')
     }
   })
 
-  t.test('creating an instance without passing a "key"', async (t) => {
+  t.test('creating a resource without passing a "key"', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider()
@@ -128,7 +124,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "key" option', async (t) => {
+  t.test('creating a resource passing a "key" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
@@ -147,7 +143,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance without passing a "label" option', async (t) => {
+  t.test('creating a resource without passing a "label" option', async t => {
     const opts = {
       name: 'test_resource',
       provider: new RbDataProvider()
@@ -165,7 +161,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "label" option', async (t) => {
+  t.test('creating a resource passing a "label" option', async t => {
     const opts = {
       name: 'test_resource',
       provider: new RbDataProvider(),
@@ -184,7 +180,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance without passing any schema', async (t) => {
+  t.test('creating a resource without passing any schema', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider()
@@ -211,7 +207,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "schema" option', async (t) => {
+  t.test('creating a resource passing a "schema" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
@@ -247,7 +243,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "createSchema" option', async (t) => {
+  t.test('creating a resource passing a "createSchema" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
@@ -272,7 +268,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "updateSchema" option', async (t) => {
+  t.test('creating a resource passing a "updateSchema" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
@@ -297,36 +293,33 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test(
-    'creating an instance without passing a "columns" option',
-    async (t) => {
-      const opts = {
-        name: 'test',
-        provider: new RbDataProvider()
-      }
-      try {
-        const resource = createResource(opts)
-        const ref = [
-          {
-            name: 'id',
-            type: 'integer'
-          }
-        ]
-        t.same(
-          resource.columns,
-          ref,
-          'should set resource.columns with a list generated from base schema properties'
-        )
-      } catch (err) {
-        console.error(err)
-        t.error(err, 'should not throw any error')
-      }
+  t.test('creating a resource without passing a "columns" option', async t => {
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider()
     }
-  )
+    try {
+      const resource = createResource(opts)
+      const ref = [
+        {
+          name: 'id',
+          type: 'integer'
+        }
+      ]
+      t.same(
+        resource.columns,
+        ref,
+        'should set resource.columns with a list generated from base schema properties'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
 
   t.test(
-    'creating an instance without passing a "columns" option but with a "schema"',
-    async (t) => {
+    'creating a resource without passing a "columns" option but with a "schema"',
+    async t => {
       const opts = {
         name: 'test',
         provider: new RbDataProvider(),
@@ -362,7 +355,7 @@ t.test('createResource', async (t) => {
     }
   )
 
-  t.test('creating an instance passing a "columns" option', async (t) => {
+  t.test('creating a resource passing a "columns" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
@@ -390,7 +383,7 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "displayAttr" option', async (t) => {
+  t.test('creating a resource passing a "displayAttr" option', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
@@ -418,30 +411,33 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing a "stringify" function option', async (t) => {
-    const opts = {
-      name: 'test',
-      provider: new RbDataProvider(),
-      stringify: data => data.name.toUpperCase()
+  t.test(
+    'creating a resource passing a "stringify" function option',
+    async t => {
+      const opts = {
+        name: 'test',
+        provider: new RbDataProvider(),
+        stringify: data => data.name.toUpperCase()
+      }
+      const instance = {
+        name: 'Test #1'
+      }
+      try {
+        const resource = createResource(opts)
+        const res = resource.stringify(instance)
+        t.equal(
+          res,
+          instance.name.toUpperCase(),
+          'should use the passed "stringify" function to create a textual representation of the resource instance'
+        )
+      } catch (err) {
+        console.error(err)
+        t.error(err, 'should not throw any error')
+      }
     }
-    const instance = {
-      name: 'Test #1'
-    }
-    try {
-      const resource = createResource(opts)
-      const res = resource.stringify(instance)
-      t.equal(
-        res,
-        instance.name.toUpperCase(),
-        'should use the passed "stringify" function to create a textual representation of the resource instance'
-      )
-    } catch (err) {
-      console.error(err)
-      t.error(err, 'should not throw any error')
-    }
-  })
+  )
 
-  t.test('creating an instance passing a "defaultParams" object', async (t) => {
+  t.test('creating a resource passing a "defaultParams" object', async t => {
     let res = ''
     class DummyDataProvider extends RbDataProvider {
       async getMany (resource, params) {
@@ -465,18 +461,14 @@ t.test('createResource', async (t) => {
         foo: 'bar',
         filters: { category: 1, name: 'test' }
       }
-      t.same(
-        res,
-        expected,
-        'should merge the given params with default ones'
-      )
+      t.same(res, expected, 'should merge the given params with default ones')
     } catch (err) {
       console.error(err)
       t.error(err, 'should not throw any error')
     }
   })
 
-  t.test('creating an instance passing a "relations" object', async (t) => {
+  t.test('creating a resource passing a "relations" object', async t => {
     const tags = createResource({
       name: 'tags',
       provider: new RbDataProvider()
@@ -501,19 +493,63 @@ t.test('createResource', async (t) => {
     }
   })
 
-  t.test('creating an instance passing an "actions" object', async (t) => {
+  t.test('creating a resource passing an "actions" object', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
       actions: {
-        foo () { return this }
+        foo () {
+          return this
+        }
       }
     }
     try {
       const resource = createResource(opts)
-      t.ok('foo' in resource.actions, 'should have registered the given actions')
+      t.ok(
+        'foo' in resource.actions,
+        'should have registered the given actions'
+      )
       const res = resource.actions.foo()
-      t.equal(res, resource, 'should have bound `this` to the current action resource')
+      t.equal(
+        res,
+        resource,
+        'should have bound `this` to the current action resource'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
+
+  t.test('creating a resource without passing an "ui" object', async t => {
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider()
+    }
+    try {
+      const resource = createResource(opts)
+      t.ok('ui' in resource, 'should have set an empty "ui" attribute')
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
+
+  t.test('creating a resource passing an "ui" object', async t => {
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider(),
+      ui: {
+        icon: 'test'
+      }
+    }
+    try {
+      const resource = createResource(opts)
+      t.same(
+        resource.ui,
+        opts.ui,
+        'should have assigned the passed "ui" attribute'
+      )
     } catch (err) {
       console.error(err)
       t.error(err, 'should not throw any error')

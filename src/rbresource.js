@@ -17,7 +17,7 @@ function _createJsonSchema (properties = {}) {
 
 function _columnsFromSchema (schema = {}) {
   const props = schema.properties || {}
-  return Object.keys(props).map((name) => ({
+  return Object.keys(props).map(name => ({
     name,
     ...props[name]
   }))
@@ -54,7 +54,8 @@ export class RbResource {
     defaultParams,
     isKeyEditable,
     relations,
-    actions
+    actions,
+    ui
   } = {}) {
     if (!name) {
       throw new Error(ERR_MISSING_RESOURCE_NAME)
@@ -74,7 +75,8 @@ export class RbResource {
     this.key = key || 'id'
     this.label = label || humanizeString(this.name)
     this.displayAttr = displayAttr
-    this.stringify = stringify || (data => data && `${data[this.displayAttr || this.key]}`)
+    this.stringify =
+      stringify || (data => data && `${data[this.displayAttr || this.key]}`)
 
     const _defaultSchema = _createJsonSchema({
       [this.key]: { type: 'integer' }
@@ -93,6 +95,8 @@ export class RbResource {
     this.columns = columns || _columnsFromSchema(_schema)
     this.relations = relations || new Map()
     this.actions = _bindActionsToResource(actions || {}, this)
+
+    this.ui = ui || {}
   }
 
   getKey (instance) {
