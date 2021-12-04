@@ -27,6 +27,28 @@ const users = createResource({
 const me = await users.getOne({ id: 1 })
 ```
 
+## Resources
+
+### Options
+
+| Name            | Description                                                   |
+|-----------------|---------------------------------------------------------------|
+| `name`          | The unique resource name (e.g. `users`)                       |
+| `path`          | The resource base path (if different than `name`)             |
+| `provider`      | The data provider used to interact with the API               |
+| `key`           | The identifier attribute name. *Default: `id`*                |
+| `label`         | A human-readable description label for the resource. *Default: capitalized name* |
+| `displayAttr`   | The attr used as representation of a single resource instance |
+| `stringify`     | A function used to get a human-readable reperesentation of a single resource instance. *Default: `instance => instance[resource.displayAttr]`* |
+| `schema`        | The JSON schema representing the strcuture of resource instances |
+| `updateSchema`  | The JSON schema used on update. *Default: `schema`*           |
+| `createSchema`  | The JSON schema used on creation. *Default: `schema`*         |
+| `defaultParams` | Default params passed to the data provider when fetching the API (e.g. default filters) |
+| `isKeyEditable` | If `true`, allows editing the `key` of an instance. *Default: `false`* |
+| `relations`     | A map of related child resources                              |
+| `actions`       | A map of actions executable on a single resource instance     |
+| `ui`            | An object containing UI-specific options and methods          |
+
 ## Development
 
 ```bash
