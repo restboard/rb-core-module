@@ -27,6 +27,10 @@ export class RbDataProvider {
   async deleteOne (resourcePath, key, params = {}) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
+
+  async deleteMany (resourcePath, keys, params = {}) {
+    throw new Error(ERR_NOT_IMPLEMENTED)
+  }
 }
 
 export default {

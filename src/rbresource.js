@@ -116,7 +116,9 @@ export class RbResource {
     return null
   }
 
-  async getMany (params = {}) {
+  async getMany (
+    params = { filters: {}, sort: '', order: '', offset: 0, limit: null }
+  ) {
     const _params = _mergeParams(this.defaultParams, params)
     return this.provider.getMany(this.path, _params)
   }
@@ -144,6 +146,11 @@ export class RbResource {
   async deleteOne (key, params) {
     const _params = _mergeParams(this.defaultParams, params)
     return this.provider.deleteOne(this.path, key, _params)
+  }
+
+  async deleteMany (keys, params) {
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.deleteMany(this.path, keys, _params)
   }
 
   related (key, name) {
