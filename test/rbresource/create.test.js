@@ -1,5 +1,5 @@
 import * as t from 'tap'
-import { createResource, errors, RbDataProvider } from '../src/index'
+import { createResource, errors, RbDataProvider } from '../../src/index'
 
 const {
   ERR_MISSING_RESOURCE_NAME,
@@ -293,96 +293,6 @@ t.test('createResource', async t => {
     }
   })
 
-  t.test('creating a resource without passing a "columns" option', async t => {
-    const opts = {
-      name: 'test',
-      provider: new RbDataProvider()
-    }
-    try {
-      const resource = createResource(opts)
-      const ref = [
-        {
-          name: 'id',
-          type: 'integer'
-        }
-      ]
-      t.same(
-        resource.columns,
-        ref,
-        'should set resource.columns with a list generated from base schema properties'
-      )
-    } catch (err) {
-      console.error(err)
-      t.error(err, 'should not throw any error')
-    }
-  })
-
-  t.test(
-    'creating a resource without passing a "columns" option but with a "schema"',
-    async t => {
-      const opts = {
-        name: 'test',
-        provider: new RbDataProvider(),
-        schema: {
-          type: 'object',
-          properties: {
-            id: { type: 'integer' },
-            title: { type: 'string' }
-          }
-        }
-      }
-      try {
-        const resource = createResource(opts)
-        const ref = [
-          {
-            name: 'id',
-            type: 'integer'
-          },
-          {
-            name: 'title',
-            type: 'string'
-          }
-        ]
-        t.same(
-          resource.columns,
-          ref,
-          'should set resource.columns with a list generated from passed "schema" properties'
-        )
-      } catch (err) {
-        console.error(err)
-        t.error(err, 'should not throw any error')
-      }
-    }
-  )
-
-  t.test('creating a resource passing a "columns" option', async t => {
-    const opts = {
-      name: 'test',
-      provider: new RbDataProvider(),
-      columns: [
-        {
-          name: 'id',
-          type: 'integer'
-        },
-        {
-          name: 'title',
-          type: 'string'
-        }
-      ]
-    }
-    try {
-      const resource = createResource(opts)
-      t.same(
-        resource.columns,
-        opts.columns,
-        'should set resource.columns to the value of the passed "columns" option'
-      )
-    } catch (err) {
-      console.error(err)
-      t.error(err, 'should not throw any error')
-    }
-  })
-
   t.test('creating a resource passing a "displayAttr" option', async t => {
     const opts = {
       name: 'test',
@@ -481,10 +391,14 @@ t.test('createResource', async t => {
     try {
       const resource = createResource(opts)
       const relatedResource = resource.related(1, tags.name)
-      const expected = 'test/1/tags'
+      t.equal(
+        relatedResource.name,
+        'tags',
+        'should keep all related resource attributes'
+      )
       t.same(
         relatedResource.path,
-        expected,
+        'test/1/tags',
         'should use the correct related resource endpoint'
       )
     } catch (err) {

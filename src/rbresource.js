@@ -2,7 +2,8 @@ import humanizeString from 'humanize-string'
 import {
   ERR_MISSING_RESOURCE_NAME,
   ERR_MISSING_RESOURCE_DATA_PROVIDER,
-  ERR_INVALID_RESOURCE_DATA_PROVIDER
+  ERR_INVALID_RESOURCE_DATA_PROVIDER,
+  ERR_INVALID_RESOURCE
 } from './errors'
 import { RbDataProvider } from './rbdataprovider'
 
@@ -13,14 +14,6 @@ function _createJsonSchema (properties = {}) {
       ...properties
     }
   }
-}
-
-function _columnsFromSchema (schema = {}) {
-  const props = schema.properties || {}
-  return Object.keys(props).map(name => ({
-    name,
-    ...props[name]
-  }))
 }
 
 function _bindActionsToResource (actions, resource) {
@@ -38,6 +31,17 @@ function _bindActionsToResource (actions, resource) {
   return actions
 }
 
+function _mergeParams (a = {}, b = {}) {
+  return {
+    ...a,
+    ...b,
+    filters: {
+      ...a.filters,
+      ...b.filters
+    }
+  }
+}
+
 export class RbResource {
   constructor ({
     name,
@@ -50,11 +54,10 @@ export class RbResource {
     schema,
     updateSchema,
     createSchema,
-    columns,
     defaultParams,
     isKeyEditable,
-    relations,
     actions,
+    relations,
     ui
   } = {}) {
     if (!name) {
@@ -92,9 +95,15 @@ export class RbResource {
     this.createSchema = createSchema || _baseJsonSchema
     this.updateSchema = updateSchema || _baseJsonSchema
 
-    this.columns = columns || _columnsFromSchema(_schema)
-    this.relations = relations || new Map()
     this.actions = _bindActionsToResource(actions || {}, this)
+
+    this.relations = new Map()
+    if (relations) {
+      for (const name in relations) {
+        const relation = relations[name]
+        this.addRelation(relation, name)
+      }
+    }
 
     this.ui = ui || {}
   }
@@ -108,71 +117,51 @@ export class RbResource {
   }
 
   async getMany (params = {}) {
-    return this.provider.getMany(this.path, {
-      ...this.defaultParams,
-      ...params,
-      filters: {
-        ...this.defaultParams.filters,
-        ...params.filters
-      }
-    })
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.getMany(this.path, _params)
   }
 
-  async getOne ({ id }) {
-    return this.provider.getOne(this.path, { id })
+  async getOne (key, params = {}) {
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.getOne(this.path, key, _params)
   }
 
-  async createOne (data) {
-    return this.provider.createOne(this.path, data)
+  async createOne (data, params = {}) {
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.createOne(this.path, data, _params)
   }
 
-  async updateOne ({ id, ...data }) {
-    return this.provider.updateOne(this.path, { id, ...data })
+  async updateOne (key, data, params = {}) {
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.updateOne(this.path, key, data, _params)
   }
 
-  async updateMany (data) {
-    return this.provider.updateMany(this.path, data)
+  async updateMany (data, params = {}) {
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.updateMany(this.path, data, _params)
   }
 
-  async deleteOne ({ id }) {
-    return this.provider.deleteOne(this.path, { id })
+  async deleteOne (key, params) {
+    const _params = _mergeParams(this.defaultParams, params)
+    return this.provider.deleteOne(this.path, key, _params)
   }
 
-  related (id, name) {
-    if (!(name in this.relations)) {
+  related (key, name) {
+    if (!this.relations.has(name)) {
       return null
     }
-    const {
-      path,
-      provider,
-      key,
-      label,
-      displayAttr,
-      stringify,
-      updateSchema,
-      createSchema,
-      columns,
-      defaultParams,
-      isKeyEditable,
-      relations,
-      actions
-    } = this.relations[name]
+    const relation = this.relations.get(name)
     return new RbResource({
-      name,
-      path: `${this.path}/${id}/${path}`,
-      provider,
-      key,
-      label,
-      displayAttr,
-      stringify,
-      updateSchema,
-      createSchema,
-      columns,
-      defaultParams,
-      isKeyEditable,
-      relations,
-      actions
+      ...relation,
+      path: `${this.path}/${key}/${relation.path}`
     })
+  }
+
+  addRelation (resource, name = null) {
+    if (!(resource instanceof RbResource)) {
+      throw new Error(ERR_INVALID_RESOURCE)
+    }
+    this.relations.set(name || resource.name, resource)
   }
 }
 

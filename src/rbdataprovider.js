@@ -8,23 +8,23 @@ export class RbDataProvider {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async getOne (resourcePath, { id }) {
+  async getOne (resourcePath, key, params = {}) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async createOne (resourcePath, data) {
+  async createOne (resourcePath, data, params = {}) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async updateOne (resourcePath, { id, ...data }) {
+  async updateOne (resourcePath, key, data, params = {}) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async updateMany (resourcePath, data) {
+  async updateMany (resourcePath, data, params = {}) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async deleteOne (resourcePath, { id }) {
+  async deleteOne (resourcePath, key, params = {}) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 }
