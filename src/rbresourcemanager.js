@@ -16,7 +16,6 @@ export class RbResourceManager {
   }
 
   registerResource (resource) {
-    console.log(resource)
     if (resource && resource instanceof RbResource) {
       this.resources.set(resource.name, resource)
     } else {
