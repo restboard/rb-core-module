@@ -101,7 +101,7 @@ export class RbResource {
     if (relations) {
       for (const name in relations) {
         const relation = relations[name]
-        this.addRelation(relation, name)
+        this.setRelation(relation, name)
       }
     }
 
@@ -153,7 +153,14 @@ export class RbResource {
     return this.provider.deleteMany(this.path, keys, _params)
   }
 
-  related (key, name) {
+  setRelation (resource, name = null) {
+    if (!(resource instanceof RbResource)) {
+      throw new Error(ERR_INVALID_RESOURCE)
+    }
+    this.relations.set(name || resource.name, resource)
+  }
+
+  getRelation (key, name) {
     if (!this.relations.has(name)) {
       return null
     }
@@ -162,13 +169,6 @@ export class RbResource {
       ...relation,
       path: `${this.path}/${key}/${relation.path}`
     })
-  }
-
-  addRelation (resource, name = null) {
-    if (!(resource instanceof RbResource)) {
-      throw new Error(ERR_INVALID_RESOURCE)
-    }
-    this.relations.set(name || resource.name, resource)
   }
 }
 

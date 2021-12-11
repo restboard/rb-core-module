@@ -390,7 +390,7 @@ t.test('createResource', async t => {
     }
     try {
       const resource = createResource(opts)
-      const relatedResource = resource.related(1, tags.name)
+      const relatedResource = resource.getRelation(1, tags.name)
       t.equal(
         relatedResource.name,
         'tags',
