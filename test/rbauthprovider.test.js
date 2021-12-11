@@ -3,8 +3,8 @@ import { RbAuthProvider, errors } from '../src/index'
 
 const { ERR_NOT_IMPLEMENTED } = errors
 
-t.test('RbAuthProvider', async (t) => {
-  t.test('calling `login` on base class', async (t) => {
+t.test('RbAuthProvider', async t => {
+  t.test('calling `login` on base class', async t => {
     const provider = new RbAuthProvider()
     try {
       await provider.login()
@@ -18,7 +18,7 @@ t.test('RbAuthProvider', async (t) => {
     }
   })
 
-  t.test('calling `logout` on base class', async (t) => {
+  t.test('calling `logout` on base class', async t => {
     const provider = new RbAuthProvider()
     try {
       await provider.logout()
@@ -32,7 +32,7 @@ t.test('RbAuthProvider', async (t) => {
     }
   })
 
-  t.test('calling `checkAuth` on base class', async (t) => {
+  t.test('calling `checkAuth` on base class', async t => {
     const provider = new RbAuthProvider()
     try {
       await provider.checkAuth()
@@ -46,7 +46,7 @@ t.test('RbAuthProvider', async (t) => {
     }
   })
 
-  t.test('calling `getIdentity` on base class', async (t) => {
+  t.test('calling `getIdentity` on base class', async t => {
     const provider = new RbAuthProvider()
     try {
       await provider.getIdentity({})
@@ -60,7 +60,7 @@ t.test('RbAuthProvider', async (t) => {
     }
   })
 
-  t.test('calling `getTenantIdentity` on base class', async (t) => {
+  t.test('calling `getTenantIdentity` on base class', async t => {
     const provider = new RbAuthProvider()
     try {
       await provider.getTenantIdentity({})
@@ -74,10 +74,10 @@ t.test('RbAuthProvider', async (t) => {
     }
   })
 
-  t.test('calling `can` on base class', async (t) => {
+  t.test('calling `can` on base class', async t => {
     const provider = new RbAuthProvider()
     try {
-      await provider.can({}, '/test')
+      await provider.can({}, 'test')
       t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
     } catch (err) {
       t.equal(

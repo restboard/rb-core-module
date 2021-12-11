@@ -21,7 +21,7 @@ export class RbAuthProvider {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 
-  async can (user, route) {
+  async can (user, action, subject = null) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
 }
