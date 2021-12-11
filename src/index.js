@@ -3,6 +3,7 @@ import { RbAuthProvider } from './rbauthprovider'
 import { RbDataProvider } from './rbdataprovider'
 import { RbStorage } from './rbstorage'
 import { RbResource, createResource } from './rbresource'
+import { RbResourceManager, createResourceManager } from './rbresourcemanager'
 
 export {
   errors,
@@ -10,5 +11,7 @@ export {
   RbDataProvider,
   RbStorage,
   RbResource,
-  createResource
+  RbResourceManager,
+  createResource,
+  createResourceManager
 }
