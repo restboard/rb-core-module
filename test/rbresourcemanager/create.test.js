@@ -4,7 +4,7 @@ import {
   createResource,
   RbResourceManager,
   RbDataProvider
-} from '../src/index'
+} from '../../src/index'
 
 const testDataProvider = new RbDataProvider()
 
