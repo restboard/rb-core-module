@@ -77,6 +77,7 @@ const me = await users.getOne(1)
 | `deleteMany(keys, params)` | Delete multiple resource instances identified by the `keys` array and `params` |
 | `setRelation(resource, name)` | Add a relation between the current and the given resources (identified by the given `name`, if passed) |
 | `getRelation(key, name)` | Return the related resource identified by `name`, scoped to the instance identified by `key` |
+| `setDirty()`             | Set the resource `lastUpdate` with the current timestamp |
 
 ## RbResourceManager
 

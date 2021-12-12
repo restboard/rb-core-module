@@ -106,6 +106,11 @@ export class RbResource {
     }
 
     this.ui = ui || {}
+
+    // This attribute is used to track the last write
+    // operation on the resource (creation, update, deletion)
+    // in order to refresh stale data.
+    this.lastUpdate = null
   }
 
   getKey (instance) {
@@ -130,27 +135,37 @@ export class RbResource {
 
   async createOne (data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
-    return this.provider.createOne(this.path, data, _params)
+    const res = this.provider.createOne(this.path, data, _params)
+    this.setDirty()
+    return res
   }
 
   async updateOne (key, data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
-    return this.provider.updateOne(this.path, key, data, _params)
+    const res = this.provider.updateOne(this.path, key, data, _params)
+    this.setDirty()
+    return res
   }
 
   async updateMany (data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
-    return this.provider.updateMany(this.path, data, _params)
+    const res = this.provider.updateMany(this.path, data, _params)
+    this.setDirty()
+    return res
   }
 
   async deleteOne (key, params) {
     const _params = _mergeParams(this.defaultParams, params)
-    return this.provider.deleteOne(this.path, key, _params)
+    const res = this.provider.deleteOne(this.path, key, _params)
+    this.setDirty()
+    return res
   }
 
   async deleteMany (keys, params) {
     const _params = _mergeParams(this.defaultParams, params)
-    return this.provider.deleteMany(this.path, keys, _params)
+    const res = this.provider.deleteMany(this.path, keys, _params)
+    this.setDirty()
+    return res
   }
 
   setRelation (resource, name = null) {
@@ -169,6 +184,10 @@ export class RbResource {
       ...relation,
       path: `${this.path}/${key}/${relation.path}`
     })
+  }
+
+  setDirty () {
+    this.lastUpdate = new Date()
   }
 }
 
