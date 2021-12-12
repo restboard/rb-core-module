@@ -471,8 +471,8 @@ t.test('createResource', async t => {
     try {
       const resource = createResource(opts)
       t.same(
-        resource.ui,
-        opts.ui,
+        resource.ui.icon,
+        opts.ui.icon,
         'should have assigned the passed "ui" attribute'
       )
     } catch (err) {

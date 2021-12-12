@@ -42,6 +42,16 @@ function _mergeParams (a = {}, b = {}) {
   }
 }
 
+function _createUIConfig (opts) {
+  const { formComponent, ...uiOpts } = opts
+
+  return {
+    ...uiOpts,
+    createFormComponent: uiOpts.createFormComponent || formComponent,
+    updateFormComponent: uiOpts.updateFormComponent || formComponent
+  }
+}
+
 export class RbResource {
   constructor ({
     name,
@@ -105,7 +115,7 @@ export class RbResource {
       }
     }
 
-    this.ui = ui || {}
+    this.ui = _createUIConfig(ui || {})
 
     // This attribute is used to track the last write
     // operation on the resource (creation, update, deletion)

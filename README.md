@@ -62,7 +62,7 @@ const me = await users.getOne(1)
 | `isKeyEditable` | If `true`, allows editing the `key` of an instance. *Default: `false`* |
 | `relations`     | A map of related child resources                              |
 | `actions`       | A map of actions executable on a single resource instance     |
-| `ui`            | An object containing UI-specific options and methods          |
+| `ui`            | An object containing UI-specific options and methods. A special `formComponent` key will be used to assign default form components for creation (`ui.createFormComponent`) and update (`ui.updateFormComponent`) if none are specified. |
 
 ### Methods
 
