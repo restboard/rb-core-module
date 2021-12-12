@@ -80,7 +80,7 @@ const me = await users.getOne(1)
 
 `RbResourceManager` is used as a registry to register and retrieve resources by name.
 
-It provides the following methods:
+### Methods
 
 | Signature                    | Description                                      |
 |------------------------------|--------------------------------------------------|
@@ -95,7 +95,7 @@ It provides the following methods:
 `RbDataProvider` is a generic interface used by resources to interact with a
 third-party API using the correct protocol and dialect.
 
-The following methods should be implemented by all data providers:
+### Methods
 
 | Signature                                    | Description                   |
 |----------------------------------------------|-------------------------------|
@@ -112,7 +112,7 @@ The following methods should be implemented by all data providers:
 authorization over a third-party API, abstracting the details of underlying
 strategies.
 
-The following methods should be implemented by all auth providers:
+### Methods
 
 | Signature            | Description                                      |
 |----------------------|--------------------------------------------------|
