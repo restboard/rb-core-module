@@ -2,6 +2,8 @@
 
 The [Restboard](https://restboard.github.io/) core module
 
+[![Node.js CI](https://github.com/restboard/rb-core-module/actions/workflows/node.js.yml/badge.svg)](https://github.com/restboard/rb-core-module/actions/workflows/node.js.yml)
+
 ## Getting started
 
 First of all, you need to install the package in your project:
