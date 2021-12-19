@@ -15,10 +15,7 @@ npm i --save rb-core-module
 Now, you can start to define and use your [resources](#RbResource):
 
 ```js
-import { createResourceManager, createResource } from 'rb-core-module'
-
-// Create a resource manager (optional)
-const registry = createResourceManager()
+import { createResource } from 'rb-core-module'
 
 // Create a new resource
 const users = createResource({
@@ -26,15 +23,6 @@ const users = createResource({
   provider: ..., // The data provider used to query the API
   ...
 })
-
-// Register the resource.
-// Please note that registering a resource within a resource
-// manager is convenient but absolutely not mandatory.
-registry.registerResource(users)
-
-// Resources can also be created and registered directly by
-// the resource manager itself:
-registry.createResource(...)
 
 // Resources can then be used to interact with the remote API:
 const me = await users.getOne(1)
@@ -78,20 +66,6 @@ const me = await users.getOne(1)
 | `setRelation(resource, name)` | Add a relation between the current and the given resources (identified by the given `name`, if passed) |
 | `getRelation(key, name)` | Return the related resource identified by `name`, scoped to the instance identified by `key` |
 | `setDirty()`             | Set the resource `lastUpdate` with the current timestamp |
-
-## RbResourceManager
-
-`RbResourceManager` is used as a registry to register and retrieve resources by name.
-
-### Methods
-
-| Signature                    | Description                                      |
-|------------------------------|--------------------------------------------------|
-| `createResource(opts)`       | Create and register a new resource               |
-| `registerResource(resource)` | Register an existing resource                    |
-| `getAllResources()`          | Retrieve a list of all registered resources      |
-| `getResourceByName(name)`    | Retrieve the registered resource identified by `name` |
-| `getAllResourceNames()`      | Retrieve a list of all registered resource names |
 
 ## RbDataProvider
 
