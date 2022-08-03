@@ -15,13 +15,18 @@ t.test('setDirty', async t => {
         null,
         'should have initialize lastUpdate to null'
       )
+      t.same(
+        resource.listeners,
+        [],
+        'should have initialize listeners to an empty array'
+      )
     } catch (err) {
       console.error(err)
       t.error(err, 'should not throw any error')
     }
   })
 
-  t.test('calling setDirty will update lastUpdate', async t => {
+  t.test('calling setDirty', async t => {
     try {
       const resource = createResource(opts)
       resource.setDirty()
@@ -29,6 +34,22 @@ t.test('setDirty', async t => {
         resource.lastUpdate,
         null,
         'should have set lastUpdate to the current timestamp'
+      )
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
+
+  t.test('calling setDirty', async t => {
+    try {
+      let isDirty = false
+      const resource = createResource(opts)
+      resource.addListener(() => isDirty = true)
+      resource.setDirty()
+      t.ok(
+        isDirty,
+        'should trigger all registered listeners'
       )
     } catch (err) {
       console.error(err)

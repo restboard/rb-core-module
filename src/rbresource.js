@@ -67,7 +67,7 @@ export class RbResource {
     defaultParams,
     isKeyEditable,
     actions,
-    relations,
+    listeners,
     ui
   } = {}) {
     if (!name) {
@@ -107,15 +107,9 @@ export class RbResource {
 
     this.actions = _bindActionsToResource(actions || {}, this)
 
-    this.relations = new Map()
-    if (relations) {
-      for (const name in relations) {
-        const relation = relations[name]
-        this.setRelation(relation, name)
-      }
-    }
-
     this.ui = _createUIConfig(ui || {})
+
+    this.listeners = [ ...listeners || [] ]
 
     // This attribute is used to track the last write
     // operation on the resource (creation, update, deletion)
@@ -145,59 +139,69 @@ export class RbResource {
 
   async createOne (data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
-    const res = this.provider.createOne(this.path, data, _params)
+    const res = await this.provider.createOne(this.path, data, _params)
     this.setDirty()
     return res
   }
 
   async updateOne (key, data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
-    const res = this.provider.updateOne(this.path, key, data, _params)
+    const res = await this.provider.updateOne(this.path, key, data, _params)
     this.setDirty()
     return res
   }
 
   async updateMany (data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
-    const res = this.provider.updateMany(this.path, data, _params)
+    const res = await this.provider.updateMany(this.path, data, _params)
     this.setDirty()
     return res
   }
 
   async deleteOne (key, params) {
     const _params = _mergeParams(this.defaultParams, params)
-    const res = this.provider.deleteOne(this.path, key, _params)
+    const res = await this.provider.deleteOne(this.path, key, _params)
     this.setDirty()
     return res
   }
 
   async deleteMany (keys, params) {
     const _params = _mergeParams(this.defaultParams, params)
-    const res = this.provider.deleteMany(this.path, keys, _params)
+    const res = await this.provider.deleteMany(this.path, keys, _params)
     this.setDirty()
     return res
   }
 
-  setRelation (resource, name = null) {
+  getRelation (key, resource, { notifyParentOnDirty = true } = {}) {
     if (!(resource instanceof RbResource)) {
       throw new Error(ERR_INVALID_RESOURCE)
     }
-    this.relations.set(name || resource.name, resource)
-  }
-
-  getRelation (key, name) {
-    if (!this.relations.has(name)) {
-      return null
-    }
-    const relation = this.relations.get(name)
-    return new RbResource({
-      ...relation,
-      path: `${this.path}/${key}/${relation.path}`
+    const relation = new RbResource({
+      ...resource,
+      path: `${this.path}/${key}/${resource.path}`
     })
+    if (notifyParentOnDirty) {
+      relation.addListener(this.setDirty)
+    }
+    return relation
   }
 
   setDirty () {
     this.lastUpdate = new Date()
+    for (const listener of this.listeners) {
+      listener(this.lastUpdate)
+    }
+  }
+
+  addListener (callback) {
+    if (typeof callback === 'function') {
+      this.listeners.push(callback)
+    }
+  }
+
+  removeListener (callback) {
+    const idx = this.listeners.indexOf(callback)
+    this.listeners.splice(idx, 1)
   }
 }
 

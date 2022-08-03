@@ -378,7 +378,7 @@ t.test('createResource', async t => {
     }
   })
 
-  t.test('creating a resource passing a "relations" object', async t => {
+  t.test('creating a resource passing a "listeners" object', async t => {
     const tags = createResource({
       name: 'tags',
       provider: new RbDataProvider()
@@ -386,20 +386,14 @@ t.test('createResource', async t => {
     const opts = {
       name: 'test',
       provider: new RbDataProvider(),
-      relations: { tags }
+      listeners: [ () => {} ]
     }
     try {
       const resource = createResource(opts)
-      const relatedResource = resource.getRelation(1, tags.name)
       t.equal(
-        relatedResource.name,
-        'tags',
-        'should keep all related resource attributes'
-      )
-      t.same(
-        relatedResource.path,
-        'test/1/tags',
-        'should use the correct related resource endpoint'
+        resource.listeners.length,
+        1,
+        'should have registered passed listeners'
       )
     } catch (err) {
       console.error(err)
