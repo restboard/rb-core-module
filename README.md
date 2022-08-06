@@ -48,24 +48,32 @@ const me = await users.getOne(1)
 | `createSchema`  | The JSON schema used on creation. *Default: `schema`*         |
 | `defaultParams` | Default params passed to the data provider when fetching the API (e.g. default filters) |
 | `isKeyEditable` | If `true`, allows editing the `key` of an instance. *Default: `false`* |
-| `relations`     | A map of related child resources                              |
 | `actions`       | A map of actions executable on a single resource instance     |
+| `listeners`     | A list of callbacks to be called when the resource is marked as dirty |
 | `ui`            | An object containing UI-specific options and methods. A special `formComponent` key will be used to assign default form components for creation (`ui.createFormComponent`) and update (`ui.updateFormComponent`) if none are specified. |
 
 ### Methods
 
-| Signature             | Description                                             |
-|-----------------------|---------------------------------------------------------|
-| `getKey(instance)`    | Retrieve the primary key of the given resource instance |
-| `getMany(params)`     | Retrieve a list of resource instances according to the given `params` |
-| `getOne(key, params)` | Retrieve a single resource instance, identified by `key` and `params` |
+| Signature                      | Description                                    |
+|--------------------------------|------------------------------------------------|
+| `getKey(instance)`             | Retrieve the primary key of the given resource instance |
+| `getMany(params)`              | Retrieve a list of resource instances according to the given `params` |
+| `getOne(key, params)`          | Retrieve a single resource instance, identified by `key` and `params` |
 | `updateOne(key, data, params)` | Update a single resource instance, identified by `key` and `params`, with the given `data` |
-| `updateMany(data, params)` | Update multiple resource instances according to `data` and `params` |
-| `deleteOne(key, params)` | Delete a single resource instance identified by `key` and `params` |
-| `deleteMany(keys, params)` | Delete multiple resource instances identified by the `keys` array and `params` |
-| `setRelation(resource, name)` | Add a relation between the current and the given resources (identified by the given `name`, if passed) |
-| `getRelation(key, name)` | Return the related resource identified by `name`, scoped to the instance identified by `key` |
-| `setDirty()`             | Set the resource `lastUpdate` with the current timestamp |
+| `updateMany(data, params)`     | Update multiple resource instances according to `data` and `params` |
+| `deleteOne(key, params)`       | Delete a single resource instance identified by `key` and `params` |
+| `deleteMany(keys, params)`     | Delete multiple resource instances identified by the `keys` array and `params` |
+| `setRelation(resource, name)`  | Add a relation between the current and the given resources (identified by the given `name`, if passed) |
+| `getRelation(key, name, opts)` | Return the related resource identified by `name`, scoped to the instance identified by `key`. For `opts` see **Relation options** |
+| `setDirty()`                   | Set the resource `lastUpdate` with the current timestamp and notify registered listeners |
+| `addListener(callback)`        | Register a new listener callback               |
+| `removeListener(callback)`     | Unregister a previously registered listener callback |
+
+### Relation options
+
+| Name                  | Description                                             |
+|-----------------------|---------------------------------------------------------|
+| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty (*default `true`*) |
 
 ## RbDataProvider
 
