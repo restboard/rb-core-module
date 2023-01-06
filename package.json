@@ -3,6 +3,7 @@
   "version": "0.26.1",
   "description": "The Restboard core module",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "tap"
   },
