@@ -1,8 +1,11 @@
 import humanizeString from 'humanize-string'
 import {
-  ERR_INVALID_RESOURCE, ERR_INVALID_RESOURCE_DATA_PROVIDER, ERR_MISSING_RESOURCE_DATA_PROVIDER, ERR_MISSING_RESOURCE_NAME
-} from './errors'
-import { RbDataProvider } from './rbdataprovider'
+  ERR_INVALID_RESOURCE,
+  ERR_INVALID_RESOURCE_DATA_PROVIDER,
+  ERR_MISSING_RESOURCE_DATA_PROVIDER,
+  ERR_MISSING_RESOURCE_NAME
+} from './errors.js'
+import { RbDataProvider } from './rbdataprovider.js'
 
 function _createJsonSchema (properties = {}) {
   return {

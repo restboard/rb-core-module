@@ -1,11 +1,11 @@
-import * as t from 'tap'
-import { createResource, errors, RbDataProvider } from '../../src/index'
-
-const {
-  ERR_MISSING_RESOURCE_NAME,
+import t from 'tap'
+import {
+  ERR_INVALID_RESOURCE_DATA_PROVIDER,
   ERR_MISSING_RESOURCE_DATA_PROVIDER,
-  ERR_INVALID_RESOURCE_DATA_PROVIDER
-} = errors
+  ERR_MISSING_RESOURCE_NAME
+} from '../../src/errors.js'
+import { RbDataProvider } from '../../src/rbdataprovider.js'
+import { createResource } from '../../src/rbresource.js'
 
 t.test('createResource', async t => {
   t.test('creating a resource without passing resource name', async t => {

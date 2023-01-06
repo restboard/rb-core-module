@@ -1,14 +1,8 @@
-import * as t from 'tap'
-import { createResource, errors, RbDataProvider } from '../../src/index'
-
-const {
-  ERR_MISSING_RESOURCE_NAME,
-  ERR_MISSING_RESOURCE_DATA_PROVIDER,
-  ERR_INVALID_RESOURCE_DATA_PROVIDER
-} = errors
+import t from 'tap'
+import { RbDataProvider } from '../../src/rbdataprovider.js'
+import { createResource } from '../../src/rbresource.js'
 
 t.test('getRelation', async t => {
-
   t.test('getting a resource relation', async t => {
     const tags = createResource({
       name: 'tags',

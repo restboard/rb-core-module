@@ -1,4 +1,4 @@
-import { ERR_NOT_IMPLEMENTED } from './errors'
+import { ERR_NOT_IMPLEMENTED } from './errors.js'
 
 export class RbDataProvider {
   async getMany (

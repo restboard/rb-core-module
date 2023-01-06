@@ -1,5 +1,6 @@
-import * as t from 'tap'
-import { createResource, RbDataProvider } from '../../src/index'
+import t from 'tap'
+import { RbDataProvider } from '../../src/rbdataprovider.js'
+import { createResource } from '../../src/rbresource.js'
 
 const opts = {
   name: 'test',

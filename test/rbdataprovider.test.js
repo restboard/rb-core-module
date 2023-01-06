@@ -1,7 +1,6 @@
-import * as t from 'tap'
-import { RbDataProvider, errors } from '../src/index'
-
-const { ERR_NOT_IMPLEMENTED } = errors
+import t from 'tap'
+import { ERR_NOT_IMPLEMENTED } from '../src/errors.js'
+import { RbDataProvider } from '../src/rbdataprovider.js'
 
 t.test('RbDataProvider', async t => {
   t.test('calling `getMany` on base class', async t => {

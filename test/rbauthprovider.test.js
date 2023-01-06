@@ -1,7 +1,6 @@
-import * as t from 'tap'
-import { RbAuthProvider, errors } from '../src/index'
-
-const { ERR_NOT_IMPLEMENTED } = errors
+import t from 'tap'
+import { ERR_NOT_IMPLEMENTED } from '../src/errors.js'
+import { RbAuthProvider } from '../src/rbauthprovider.js'
 
 t.test('RbAuthProvider', async t => {
   t.test('calling `login` on base class', async t => {
