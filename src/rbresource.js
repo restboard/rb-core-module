@@ -52,7 +52,35 @@ function _createUIConfig (opts) {
   }
 }
 
+/**
+ * A resource exposed by an API
+ *
+ * @export
+ * @class RbResource
+ */
 export class RbResource {
+  /**
+   * Creates an instance of RbResource
+   * 
+   * @param {Object} {
+   *     name,
+   *     path,
+   *     provider,
+   *     key,
+   *     label,
+   *     displayAttr,
+   *     stringify,
+   *     schema,
+   *     updateSchema,
+   *     createSchema,
+   *     defaultParams,
+   *     isKeyEditable,
+   *     actions,
+   *     listeners,
+   *     ui
+   *   } - The creation options
+   * @memberof RbResource
+   */
   constructor ({
     name,
     path,
@@ -117,6 +145,13 @@ export class RbResource {
     this.lastUpdate = null
   }
 
+  /**
+   * Return the key of the given resource instance
+   *
+   * @param {Object} instance - The resource instance to get the key from
+   * @return {Number|String|null} The key of the resource instance
+   * @memberof RbResource
+   */
   getKey (instance) {
     if (instance && this.key in instance) {
       return instance[this.key]
@@ -125,18 +160,41 @@ export class RbResource {
     return null
   }
 
+  /**
+   * Get a list of resource instances matching the given params
+   *
+   * @param {Object} params { filters = {}, sort = '', order = '', offset = 0, limit = null } - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
   async getMany (
-    params = { filters: {}, sort: '', order: '', offset: 0, limit: null }
+    params = { filters = {}, sort = '', order = '', offset = 0, limit = null } = {}
   ) {
     const _params = _mergeParams(this.defaultParams, params)
     return this.provider.getMany(this.path, _params)
   }
 
+  /**
+   * Get the resource instance matching the given key and params
+   *
+   * @param {Number|String} key - The resource instance key
+   * @param {Object} params - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
   async getOne (key, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
     return this.provider.getOne(this.path, key, _params)
   }
 
+  /**
+   * Store a new resource instance
+   *
+   * @param {Object} data - The resource instance attributes
+   * @param {Object} params - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
   async createOne (data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
     const res = await this.provider.createOne(this.path, data, _params)
@@ -144,6 +202,15 @@ export class RbResource {
     return res
   }
 
+  /**
+   * Update an existing resource instance
+   *
+   * @param {Number|String} key - The resource instance identifier
+   * @param {Object} data - The resource instance attributes
+   * @param {Object} params - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
   async updateOne (key, data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
     const res = await this.provider.updateOne(this.path, key, data, _params)
@@ -151,6 +218,14 @@ export class RbResource {
     return res
   }
 
+  /**
+   * Update several existing resource instances
+   *
+   * @param {Array} data - The list of resource instance datasets (including their identifier)
+   * @param {Object} params - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
   async updateMany (data, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
     const res = await this.provider.updateMany(this.path, data, _params)
@@ -158,20 +233,50 @@ export class RbResource {
     return res
   }
 
-  async deleteOne (key, params) {
+  /**
+   * Delete an existing resource instance
+   *
+   * @param {Number|String} key - The resource instance identifier
+   * @param {Object} params - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
+  async deleteOne (key, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
     const res = await this.provider.deleteOne(this.path, key, _params)
     this.setDirty()
     return res
   }
 
-  async deleteMany (keys, params) {
+  /**
+   * Delete several existing resource instances
+   *
+   * @param {Array} keys - The list of identifiers of resource instances to be deleted
+   * @param {Object} params - The query input params
+   * @return {Object} The query response
+   * @memberof RbResource
+   */
+  async deleteMany (keys, params = {}) {
     const _params = _mergeParams(this.defaultParams, params)
     const res = await this.provider.deleteMany(this.path, keys, _params)
     this.setDirty()
     return res
   }
 
+  /**
+   * Bind the given related resource to the given resource instance
+   * 
+   * This method can be used to create a new relation resource between
+   * a specific instance of the source resource and a sub-resource.
+   * 
+   * e.g. users.getRelation(1, attachments) -> /users/1/attachments
+   *
+   * @param {Number|String} key - The identifier of the resource instance
+   * @param {RbResource} resource - The related resource
+   * @param {Object} [{ notifyParentOnDirty = true }={}] - The relation options
+   * @return {RbResource} The new relation resource
+   * @memberof RbResource
+   */
   getRelation (key, resource, { notifyParentOnDirty = true } = {}) {
     if (!(resource instanceof RbResource)) {
       throw new Error(ERR_INVALID_RESOURCE)
@@ -186,6 +291,11 @@ export class RbResource {
     return relation
   }
 
+  /**
+   * Mark a resource as dirty and notify it to all its observers
+   *
+   * @memberof RbResource
+   */
   setDirty () {
     this.lastUpdate = new Date()
     for (const listener of this.listeners) {
@@ -193,18 +303,41 @@ export class RbResource {
     }
   }
 
+  /**
+   * Register a new observer callback for this resource
+   * 
+   * The callback should implement the following signature:
+   * 
+   * (lastUpdate) => {}
+   *
+   * @param {Function} callback - The observer callback to register
+   * @memberof RbResource
+   */
   addListener (callback) {
     if (typeof callback === 'function') {
       this.listeners.push(callback)
     }
   }
 
+  /**
+   * Unregister an observer callback from this resource
+   *
+   * @param {Function} callback - The observer callback to unregister
+   * @memberof RbResource
+   */
   removeListener (callback) {
     const idx = this.listeners.indexOf(callback)
     this.listeners.splice(idx, 1)
   }
 }
 
+/**
+ * Create a new RbResource instance
+ *
+ * @export
+ * @param {Object} opts - The resource options
+ * @return {RbResource} The created resource 
+ */
 export function createResource (opts) {
   return new RbResource(opts)
 }
