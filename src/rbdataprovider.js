@@ -17,7 +17,7 @@ export class RbDataProvider {
    */
   async getMany (
     resourcePath,
-    params = { filters = {}, sort = '', order = '', offset = 0, limit = null } = {}
+    { filters = {}, sort = '', order = '', offset = 0, limit = null } = {}
   ) {
     throw new Error(ERR_NOT_IMPLEMENTED)
   }
