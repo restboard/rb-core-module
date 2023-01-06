@@ -1,9 +1,6 @@
 import humanizeString from 'humanize-string'
 import {
-  ERR_MISSING_RESOURCE_NAME,
-  ERR_MISSING_RESOURCE_DATA_PROVIDER,
-  ERR_INVALID_RESOURCE_DATA_PROVIDER,
-  ERR_INVALID_RESOURCE
+  ERR_INVALID_RESOURCE, ERR_INVALID_RESOURCE_DATA_PROVIDER, ERR_MISSING_RESOURCE_DATA_PROVIDER, ERR_MISSING_RESOURCE_NAME
 } from './errors'
 import { RbDataProvider } from './rbdataprovider'
 
@@ -109,7 +106,7 @@ export class RbResource {
 
     this.ui = _createUIConfig(ui || {})
 
-    this.listeners = [ ...listeners || [] ]
+    this.listeners = [...listeners || []]
 
     // This attribute is used to track the last write
     // operation on the resource (creation, update, deletion)
