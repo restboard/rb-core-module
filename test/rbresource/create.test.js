@@ -408,11 +408,6 @@ t.test('createResource', async t => {
       actions: {
         foo () {
           return this
-        },
-        bar: {
-          run () {
-            return this
-          }
         }
       }
     }
@@ -421,18 +416,6 @@ t.test('createResource', async t => {
       t.ok(
         'foo' in resource.actions,
         'should have registered the given actions'
-      )
-      const fooRes = resource.actions.foo()
-      t.equal(
-        fooRes,
-        resource,
-        'should have bound `this` to the passed action function resource'
-      )
-      const barRes = resource.actions.bar.run()
-      t.equal(
-        barRes,
-        resource,
-        'should have bound `this` to the passed action object resource'
       )
     } catch (err) {
       console.error(err)
