@@ -54,26 +54,28 @@ const me = await users.getOne(1)
 
 ### Methods
 
-| Signature                      | Description    |
-| ------------------------------ | -------------- |
-| `getKey(instance)`             | Retrieve the primary key of the given resource instance |
-| `getMany(params)`              | Retrieve a list of resource instances according to the given `params` |
-| `getOne(key, params)`          | Retrieve a single resource instance, identified by `key` and `params` |
-| `updateOne(key, data, params)` | Update a single resource instance, identified by `key` and `params`, with the given `data` |
-| `updateMany(data, params)`     | Update multiple resource instances according to `data` and `params` |
-| `deleteOne(key, params)`       | Delete a single resource instance identified by `key` and `params` |
-| `deleteMany(keys, params)`     | Delete multiple resource instances identified by the `keys` array and `params` |
-| `getRelation(key, name, opts)` | Return the related resource identified by `name`, scoped to the instance identified by `key`. For `opts` see **Relation options** |
-| `setDirty()`                   | Set the resource `lastUpdate` with the current timestamp and notify registered listeners |
-| `addListener(callback)`        | Register a new listener callback |
-| `removeListener(callback)`     | Unregister a previously registered listener callback |
-| `mergeParams(params)`          | Merge given `params` with resource default ones |
+| Signature                                  | Description    |
+| ------------------------------------------ | -------------- |
+| `getKey(instance)`                         | Retrieve the primary key of the given resource instance |
+| `getMany(params)`                          | Retrieve a list of resource instances according to the given `params` |
+| `getOne(key, params)`                      | Retrieve a single resource instance, identified by `key` and `params` |
+| `updateOne(key, data, params)`             | Update a single resource instance, identified by `key` and `params`, with the given `data` |
+| `updateMany(data, params)`                 | Update multiple resource instances according to `data` and `params` |
+| `deleteOne(key, params)`                   | Delete a single resource instance identified by `key` and `params` |
+| `deleteMany(keys, params)`                 | Delete multiple resource instances identified by the `keys` array and `params` |
+| `getRelation(key, name, opts)`             | Return the related resource identified by `name`, scoped to the instance identified by `key`. For `opts` see **Relation options** |
+| `setDirty()`                               | Set the resource `lastUpdate` with the current timestamp and notify registered listeners |
+| `addListener(callback)`                    | Register a new listener callback |
+| `removeListener(callback)`                 | Unregister a previously registered listener callback |
+| `mergeParams(params)`                      | Merge given `params` with resource default ones |
+| `isActionVisible(action, instance)`        | Check if `action` should be visible for the given resource `instance` |
+| `executeAction(action, instance, context)` | Execute the `action` on the given resource `instance` and `context` |
 
 ### Relation options
 
-| Name                  | Description                                                         |
-| --------------------- | ------------------------------------------------------------------- |
-| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty (_default `true`_) |
+| Name                  | Description                                      | Default           |
+| --------------------- | ------------------------------------------------ | ----------------- |
+| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty | `true`            |
 
 ## RbDataProvider
 
