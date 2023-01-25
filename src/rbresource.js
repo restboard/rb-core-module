@@ -31,17 +31,6 @@ function _bindActionsToResource (actions, resource) {
   return actions
 }
 
-function _mergeParams (a = {}, b = {}) {
-  return {
-    ...a,
-    ...b,
-    filters: {
-      ...a.filters,
-      ...b.filters
-    }
-  }
-}
-
 function _createUIConfig (opts) {
   const { formComponent, ...uiOpts } = opts
 
@@ -167,10 +156,14 @@ export class RbResource {
    * @return {Object} The query response
    * @memberof RbResource
    */
-  async getMany (
-    params = { filters = {}, sort = '', order = '', offset = 0, limit = null } = {}
-  ) {
-    const _params = _mergeParams(this.defaultParams, params)
+  async getMany (params = {
+    filters: {},
+    sort: '',
+    order: '',
+    offset: 0,
+    limit: null
+  }) {
+    const _params = this.mergeParams(params)
     return this.provider.getMany(this.path, _params)
   }
 
@@ -183,7 +176,7 @@ export class RbResource {
    * @memberof RbResource
    */
   async getOne (key, params = {}) {
-    const _params = _mergeParams(this.defaultParams, params)
+    const _params = this.mergeParams(params)
     return this.provider.getOne(this.path, key, _params)
   }
 
@@ -196,7 +189,7 @@ export class RbResource {
    * @memberof RbResource
    */
   async createOne (data, params = {}) {
-    const _params = _mergeParams(this.defaultParams, params)
+    const _params = this.mergeParams(params)
     const res = await this.provider.createOne(this.path, data, _params)
     this.setDirty()
     return res
@@ -212,7 +205,7 @@ export class RbResource {
    * @memberof RbResource
    */
   async updateOne (key, data, params = {}) {
-    const _params = _mergeParams(this.defaultParams, params)
+    const _params = this.mergeParams(params)
     const res = await this.provider.updateOne(this.path, key, data, _params)
     this.setDirty()
     return res
@@ -227,7 +220,7 @@ export class RbResource {
    * @memberof RbResource
    */
   async updateMany (data, params = {}) {
-    const _params = _mergeParams(this.defaultParams, params)
+    const _params = this.mergeParams(params)
     const res = await this.provider.updateMany(this.path, data, _params)
     this.setDirty()
     return res
@@ -242,7 +235,7 @@ export class RbResource {
    * @memberof RbResource
    */
   async deleteOne (key, params = {}) {
-    const _params = _mergeParams(this.defaultParams, params)
+    const _params = this.mergeParams(params)
     const res = await this.provider.deleteOne(this.path, key, _params)
     this.setDirty()
     return res
@@ -257,7 +250,7 @@ export class RbResource {
    * @memberof RbResource
    */
   async deleteMany (keys, params = {}) {
-    const _params = _mergeParams(this.defaultParams, params)
+    const _params = this.mergeParams(params)
     const res = await this.provider.deleteMany(this.path, keys, _params)
     this.setDirty()
     return res
@@ -328,6 +321,24 @@ export class RbResource {
   removeListener (callback) {
     const idx = this.listeners.indexOf(callback)
     this.listeners.splice(idx, 1)
+  }
+
+  /**
+   * Merge th given params with resource default ones
+   *
+   * @param {Object} params - The params object to merge default ones with
+   * @return {Object} The resulting merged params
+   * @memberof RbResource
+   */
+  mergeParams (params = {}) {
+    return {
+      ...this.defaultParams,
+      ...params,
+      filters: {
+        ...this.defaultParams.filters,
+        ...params.filters
+      }
+    }
   }
 }
 
