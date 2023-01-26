@@ -57,6 +57,7 @@ const me = await users.getOne(1)
 | Signature                      | Description    |
 | ------------------------------ | -------------- |
 | `getKey(instance)`             | Retrieve the primary key of the given resource `instance` |
+| `stringify(instance)`          | Render a string representantion of the given resource `instance` |
 | `getMany(params)`              | Retrieve a list of resource instances according to the given `params` |
 | `getOne(key, params)`          | Retrieve a single resource instance, identified by `key` and `params` |
 | `updateOne(key, data, params)` | Update a single resource instance, identified by `key` and `params`, with the given `data` |
