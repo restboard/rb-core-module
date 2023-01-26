@@ -270,6 +270,26 @@ export class RbResource {
   }
 
   /**
+   * Get a dictionary of resource actions, where each action is bound to the resource
+   *
+   * @return {Object} The bound resource actions dictionary
+   * @memberof RbResource
+   */
+  getActions () {
+    return Object.fromEntries(Object.entries(this.actions).map(([key, action]) => {
+      if (action.run) {
+        const boundAction = {
+          ...action,
+          run: (...args) => action.run.call(this, ...args),
+          isVisible: action.isVisible && ((...args) => action.isVisible.call(this, ...args))
+        }
+        return [key, boundAction]
+      }
+      return [key, (...args) => action.call(this, ...args)]
+    }))
+  }
+
+  /**
    * Mark a resource as dirty and notify it to all its observers
    *
    * @memberof RbResource
@@ -324,41 +344,6 @@ export class RbResource {
         ...params.filters
       }
     }
-  }
-
-  /**
-   * Check if the given action should be visible for the given resource instance
-   * 
-   * By default, an action not defining a `isVisible` method is always visible.
-   *
-   * @param {Object|Function} action The action to check for visibility
-   * @param {Object} instance The resource instance the action visibility should be check for
-   * @return {boolean} True if the action should be visible, false otherwise
-   * @memberof RbResource
-   */
-  isActionVisible(action, instance) {
-    return (action.isVisible)
-      ? action.isVisible.call(this, instance)
-      : true
-  }
-
-  /**
-   * Execute the action on the resource instance with the given context
-   * 
-   * Actions can be functions or objects defining a `run(...)` method.
-   * In both cases, the action handler should accept `instance` and `context` args.
-   *
-   * @param {Object|Function} action The action to execute
-   * @param {Object} instance The resource instance to execute the action on
-   * @param {Object} context An additional context for the action
-   * @return {*} The result of the action execution 
-   * @memberof RbResource
-   */
-  executeAction(action, instance, context = {}) {
-    if (action.run) {
-      return action.run.call(this, instance, context)
-    }
-    return action.call(this, instance, context)
   }
 }
 

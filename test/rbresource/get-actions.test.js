@@ -2,7 +2,7 @@ import t from 'tap'
 import { RbDataProvider } from '../../src/rbdataprovider.js'
 import { createResource } from '../../src/rbresource.js'
 
-t.test('executeAction', async t => {
+t.test('getActions', async t => {
   t.test('executing a function', async t => {
     const opts = {
       name: 'test',
@@ -15,7 +15,7 @@ t.test('executeAction', async t => {
     }
     try {
       const resource = createResource(opts)
-      const fooRes = resource.executeAction(resource.actions.foo)
+      const fooRes = resource.getActions().foo()
       t.equal(
         fooRes,
         resource,
@@ -33,6 +33,9 @@ t.test('executeAction', async t => {
       provider: new RbDataProvider(),
       actions: {
         bar: {
+            isVisible () {
+              return this
+            },
             run () {
                 return this
             }
@@ -41,11 +44,18 @@ t.test('executeAction', async t => {
     }
     try {
       const resource = createResource(opts)
-      const barRes = resource.executeAction(resource.actions.bar)
+      const { bar } = resource.getActions()
+      const barRes = bar.run()
       t.equal(
         barRes,
         resource,
-        'should have bound the resource as `this` of the action'
+        'should have bound the resource as `this` of the action handler'
+      )
+      const barVisible = bar.isVisible()
+      t.equal(
+        barVisible,
+        resource,
+        'should have bound the resource as `this` of the action isVisible method'
       )
     } catch (err) {
       console.error(err)
