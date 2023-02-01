@@ -264,7 +264,7 @@ export class RbResource {
       path: `${this.path}/${key}/${resource.path}`
     })
     if (notifyParentOnDirty) {
-      relation.addListener(this.setDirty)
+      relation.addListener(this.setDirty.bind(this))
     }
     return relation
   }
