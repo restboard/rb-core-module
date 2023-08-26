@@ -457,4 +457,31 @@ t.test('createResource', async t => {
       t.error(err, 'should not throw any error')
     }
   })
+
+  t.test('creating a resource passing a "methods" object', async t => {
+    const opts = {
+      name: 'test',
+      provider: new RbDataProvider(),
+      methods: {
+        testOne: function () {
+          this.test = 'test1'
+        },
+        testTwo () {
+          this.test = 'test2'
+        }
+      }
+    }
+    try {
+      const resource = createResource(opts)
+      t.ok('testOne' in resource, 'should have registered a method by name')
+      resource.testOne()
+      t.equal(resource.test, 'test1', 'should invoke the method with the current binding')
+      t.ok('testTwo' in resource, 'should have registered a method inferring its name')
+      resource.testTwo()
+      t.equal(resource.test, 'test2', 'should invoke the method with the current binding')
+    } catch (err) {
+      console.error(err)
+      t.error(err, 'should not throw any error')
+    }
+  })
 })

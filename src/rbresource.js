@@ -51,6 +51,7 @@ export class RbResource {
    *     isKeyEditable,
    *     actions,
    *     listeners,
+   *     methods,
    *     ui
    *   } - The creation options
    * @memberof RbResource
@@ -70,6 +71,7 @@ export class RbResource {
     isKeyEditable,
     actions,
     listeners,
+    methods,
     ui
   } = {}) {
     if (!name) {
@@ -112,6 +114,13 @@ export class RbResource {
     this.ui = _createUIConfig(ui || {})
 
     this.listeners = [...listeners || []]
+
+    // Extend the base resource API with additional user-defined methods
+    const funcs = Object.getOwnPropertyNames(methods || {})
+      .filter(item => typeof methods[item] === 'function')
+    for (const funcName of funcs) {
+      this[funcName] = methods[funcName].bind(this)
+    }
 
     // This attribute is used to track the last write
     // operation on the resource (creation, update, deletion)

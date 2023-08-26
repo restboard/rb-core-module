@@ -34,22 +34,23 @@ const me = await users.getOne(1)
 
 ### Options
 
-| Name            | Description                                                                                                                                                                                                                             |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`          | The unique resource name (e.g. `users`)                                                                                                                                                                                                 |
-| `path`          | The resource base path (if different than `name`)                                                                                                                                                                                       |
-| `provider`      | The data provider used to interact with the API                                                                                                                                                                                         |
-| `key`           | The identifier attribute name. _Default: `id`_                                                                                                                                                                                          |
-| `label`         | A human-readable description label for the resource. _Default: capitalized name_                                                                                                                                                        |
-| `displayAttr`   | The attr used as representation of a single resource instance                                                                                                                                                                           |
-| `stringify`     | A function used to get a human-readable reperesentation of a single resource instance. _Default: `instance => instance[resource.displayAttr]`_                                                                                          |
-| `schema`        | The JSON schema representing the strcuture of resource instances                                                                                                                                                                        |
-| `updateSchema`  | The JSON schema used on update. _Default: `schema`_                                                                                                                                                                                     |
-| `createSchema`  | The JSON schema used on creation. _Default: `schema`_                                                                                                                                                                                   |
-| `defaultParams` | Default params passed to the data provider when fetching the API (e.g. default filters)                                                                                                                                                 |
-| `isKeyEditable` | If `true`, allows editing the `key` of an instance. _Default: `false`_                                                                                                                                                                  |
-| `actions`       | A map of actions executable on a single resource instance                                                                                                                                                                               |
-| `listeners`     | A list of callbacks to be called when the resource is marked as dirty                                                                                                                                                                   |
+| Name            | Description |
+| --------------- | ----------- |
+| `name`          | The unique resource name (e.g. `users`) |
+| `path`          | The resource base path (if different than `name`) |
+| `provider`      | The data provider used to interact with the API |
+| `key`           | The identifier attribute name. _Default: `id`_ |
+| `label`         | A human-readable description label for the resource. _Default: capitalized name_ |
+| `displayAttr`   | The attr used as representation of a single resource instance |
+| `stringify`     | A function used to get a human-readable reperesentation of a single resource instance. _Default: `instance => instance[resource.displayAttr]`_ |
+| `schema`        | The JSON schema representing the strcuture of resource instances |
+| `updateSchema`  | The JSON schema used on update. _Default: `schema` |
+| `createSchema`  | The JSON schema used on creation. _Default: `schema` |
+| `defaultParams` | Default params passed to the data provider when fetching the API (e.g. default filters) |
+| `isKeyEditable` | If `true`, allows editing the `key` of an instance. _Default: `false` |
+| `actions`       | A map of actions executable on a single resource instance |
+| `listeners`     | A list of callbacks to be called when the resource is marked as dirty |
+| `methods`       | A dictionary of extra methods to extend the default resource API |
 | `ui`            | An object containing UI-specific options and methods. A special `formComponent` key will be used to assign default form components for creation (`ui.createFormComponent`) and update (`ui.updateFormComponent`) if none are specified. |
 
 ### Methods
