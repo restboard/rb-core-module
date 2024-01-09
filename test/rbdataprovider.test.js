@@ -1,103 +1,103 @@
-import t from 'tap'
-import { ERR_NOT_IMPLEMENTED } from '../src/errors.js'
-import { RbDataProvider } from '../src/rbdataprovider.js'
+import t from "tap";
+import { ERR_NOT_IMPLEMENTED } from "../src/errors.js";
+import { RbDataProvider } from "../src/rbdataprovider.js";
 
-t.test('RbDataProvider', async t => {
-  t.test('calling `getMany` on base class', async t => {
-    const provider = new RbDataProvider()
+t.test("RbDataProvider", async (t) => {
+  t.test("calling `getMany` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.getMany('test')
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.getMany("test");
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
+  });
 
-  t.test('calling `getOne` on base class', async t => {
-    const provider = new RbDataProvider()
+  t.test("calling `getOne` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.getOne('test', {})
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.getOne("test", {});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
+  });
 
-  t.test('calling `createOne` on base class', async t => {
-    const provider = new RbDataProvider()
+  t.test("calling `createOne` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.createOne('test', {})
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.createOne("test", {});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
+  });
 
-  t.test('calling `updateOne` on base class', async t => {
-    const provider = new RbDataProvider()
+  t.test("calling `updateOne` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.updateOne('test', {})
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.updateOne("test", {});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
+  });
 
-  t.test('calling `updateMany` on base class', async t => {
-    const provider = new RbDataProvider()
+  t.test("calling `updateMany` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.updateMany('test', {})
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.updateMany("test", {});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
+  });
 
-  t.test('calling `deleteOne` on base class', async t => {
-    const provider = new RbDataProvider()
+  t.test("calling `deleteOne` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.deleteOne('test', {})
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.deleteOne("test", {});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
+  });
 
-  t.test('calling `deleteMany` on base class', async t => {
-    const provider = new RbDataProvider()
+  t.test("calling `deleteMany` on base class", async (t) => {
+    const provider = new RbDataProvider();
     try {
-      await provider.deleteMany(['test'], {})
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`)
+      await provider.deleteMany(["test"], {});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
         err.message,
         ERR_NOT_IMPLEMENTED,
         `should throw ${ERR_NOT_IMPLEMENTED}`
-      )
+      );
     }
-  })
-})
+  });
+});

@@ -1,4 +1,4 @@
-import { ERR_NOT_IMPLEMENTED } from './errors.js'
+import { ERR_NOT_IMPLEMENTED } from "./errors.js";
 
 /**
  * The base class for data providers
@@ -11,15 +11,28 @@ export class RbDataProvider {
    * Get a list of resource instances matching the given params
    *
    * @param {String} resourcePath - The resource path to get the list of instances from
-   * @param {Object} params { filters = {}, sort = '', order = '', offset = 0, limit = null } - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {String} [params.sort] - The attribute to sort queries for
+   * @param {String} [params.order] - The order to sort queries for ('asc' or 'desc')
+   * @param {Number} [params.offset] - The offset to start querying results from
+   * @param {Number} [params.limit] - The maximum number of results to retrieve
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbDataProvider
    */
-  async getMany (
+  async getMany(
     resourcePath,
-    { filters = {}, sort = '', order = '', offset = 0, limit = null } = {}
+    {
+      filters = {},
+      sort = "",
+      order = "",
+      offset = 0,
+      limit = null,
+      abort = null,
+    } = {}
   ) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
   /**
@@ -27,12 +40,14 @@ export class RbDataProvider {
    *
    * @param {String} resourcePath - The resource path to get the instance from
    * @param {Number|String} key - The resource instance key
-   * @param {Object} params - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbResource
    */
-  async getOne (resourcePath, key, params = {}) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+  async getOne(resourcePath, key, { filters = {}, abort = null } = {}) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
   /**
@@ -40,12 +55,14 @@ export class RbDataProvider {
    *
    * @param {String} resourcePath - The resource path associated to the instance to be stored
    * @param {Object} data - The resource instance attributes
-   * @param {Object} params - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbResource
    */
-  async createOne (resourcePath, data, params = {}) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+  async createOne(resourcePath, data, { filters = {}, abort = null } = {}) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
   /**
@@ -54,12 +71,19 @@ export class RbDataProvider {
    * @param {String} resourcePath - The resource path associated to the instance to be updated
    * @param {Number|String} key - The resource instance identifier
    * @param {Object} data - The resource instance attributes
-   * @param {Object} params - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbResource
    */
-  async updateOne (resourcePath, key, data, params = {}) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+  async updateOne(
+    resourcePath,
+    key,
+    data,
+    { filters = {}, abort = null } = {}
+  ) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
   /**
@@ -67,12 +91,14 @@ export class RbDataProvider {
    *
    * @param {String} resourcePath - The resource path associated to the instances to be updated
    * @param {Array} data - The list of resource instance datasets (including their identifier)
-   * @param {Object} params - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbResource
    */
-  async updateMany (resourcePath, data, params = {}) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+  async updateMany(resourcePath, data, { filters = {}, abort = null } = {}) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
   /**
@@ -80,12 +106,14 @@ export class RbDataProvider {
    *
    * @param {String} resourcePath - The resource path associated to the instance to be deleted
    * @param {Number|String} key - The resource instance identifier
-   * @param {Object} params - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbResource
    */
-  async deleteOne (resourcePath, key, params = {}) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+  async deleteOne(resourcePath, key, { filters = {}, abort = null } = {}) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 
   /**
@@ -93,15 +121,17 @@ export class RbDataProvider {
    *
    * @param {String} resourcePath - The resource path associated to the instances to be deleted
    * @param {Array} keys - The list of identifiers of resource instances to be deleted
-   * @param {Object} params - The query input params
-   * @return {Object} The query response
+   * @param {Object} [params] - The (optional) query additional params
+   * @param {Object} [params.filters] - The query filters
+   * @param {AbortController} [params.abort] - The query abort controller
+   * @return {Promise<Object>} The query response
    * @memberof RbResource
    */
-  async deleteMany (resourcePath, keys, params = {}) {
-    throw new Error(ERR_NOT_IMPLEMENTED)
+  async deleteMany(resourcePath, keys, { filters = {}, abort = null } = {}) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
   }
 }
 
 export default {
-  RbDataProvider
-}
+  RbDataProvider,
+};

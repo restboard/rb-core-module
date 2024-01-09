@@ -34,29 +34,29 @@ const me = await users.getOne(1)
 
 ### Options
 
-| Name            | Description |
-| --------------- | ----------- |
-| `name`          | The unique resource name (e.g. `users`) |
-| `path`          | The resource base path (if different than `name`) |
-| `provider`      | The data provider used to interact with the API |
-| `key`           | The identifier attribute name. _Default: `id`_ |
-| `label`         | A human-readable description label for the resource. _Default: capitalized name_ |
-| `displayAttr`   | The attr used as representation of a single resource instance |
-| `stringify`     | A function used to get a human-readable reperesentation of a single resource instance. _Default: `instance => instance[resource.displayAttr]`_ |
-| `schema`        | The JSON schema representing the strcuture of resource instances |
-| `updateSchema`  | The JSON schema used on update. _Default: `schema` |
-| `createSchema`  | The JSON schema used on creation. _Default: `schema` |
-| `defaultParams` | Default params passed to the data provider when fetching the API (e.g. default filters) |
-| `isKeyEditable` | If `true`, allows editing the `key` of an instance. _Default: `false` |
-| `actions`       | A map of actions executable on a single resource instance |
-| `listeners`     | A list of callbacks to be called when the resource is marked as dirty |
-| `methods`       | A dictionary of extra methods to extend the default resource API |
-| `ui`            | An object containing UI-specific options and methods. A special `formComponent` key will be used to assign default form components for creation (`ui.createFormComponent`) and update (`ui.updateFormComponent`) if none are specified. |
+| Name            | Description | Default |
+| --------------- | ----------- | ------- |
+| `name`          | The unique resource name (e.g. `users`) ||
+| `provider`      | The data provider used to interact with the API ||
+| `key`           | The identifier attribute name | `id` |
+| `path`          | The resource base path (if different than `name`) | `name` |
+| `label`         | A human-readable description label for the resource | capitalized `name` |
+| `displayAttr`   | The attr used as representation of a single resource instance | `key` |
+| `stringify`     | A function used to get a human-readable reperesentation of a single resource instance | `instance => instance[resource.displayAttr]` |
+| `schema`        | The JSON schema representing the strcuture of resource instances | `undefined` |
+| `updateSchema`  | The JSON schema used on update | `schema` |
+| `createSchema`  | The JSON schema used on creation | `schema` |
+| `defaultParams` | Default params passed to the data provider when fetching the API (e.g. default filters) | `{}` |
+| `isKeyEditable` | If `true`, allows editing the `key` of an instance | `false` |
+| `actions`       | A map of actions executable on a single resource instance | `{}` |
+| `listeners`     | A list of callbacks to be called when the resource is marked as dirty | `[]` |
+| `methods`       | A dictionary of extra methods to extend the default resource API | `{}` |
+| `ui`            | An object containing UI-specific options and methods. A special `formComponent` key will be used to assign default form components for creation (`ui.createFormComponent`) and update (`ui.updateFormComponent`) if none are specified | `{}` |
 
 ### Methods
 
-| Signature                      | Description    |
-| ------------------------------ | -------------- |
+| Signature                      | Description |
+| ------------------------------ | ----------- |
 | `getKey(instance)`             | Retrieve the primary key of the given resource `instance` |
 | `stringify(instance)`          | Render a string representantion of the given resource `instance` |
 | `getMany(params)`              | Retrieve a list of resource instances according to the given `params` |
@@ -74,9 +74,9 @@ const me = await users.getOne(1)
 
 ### Relation options
 
-| Name                  | Description                                      | Default           |
-| --------------------- | ------------------------------------------------ | ----------------- |
-| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty | `true`            |
+| Name                  | Description                                      | Default |
+| --------------------- | ------------------------------------------------ | ------- |
+| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty | `true`  |
 
 ## RbDataProvider
 
@@ -102,13 +102,13 @@ strategies.
 
 ### Methods
 
-| Signature                    | Description                                                     |
-| ---------------------------- | --------------------------------------------------------------- |
-| `login(credentials)`         | Attempt to log the user identified by the given `credentials`   |
-| `logout()`                   | Terminate the current authenticated session                     |
-| `checkAuth()`                | Check if the current authenticated session is still valid       |
-| `getIdentity(user)`          | Given a `user`, retrieve its textual representation             |
-| `getTenantIdentity(user)`    | Given a `user`, retireve its tenant identity                    |
+| Signature                    | Description |
+| ---------------------------- | ----------- |
+| `login(credentials)`         | Attempt to log the user identified by the given `credentials` |
+| `logout()`                   | Terminate the current authenticated session |
+| `checkAuth()`                | Check if the current authenticated session is still valid |
+| `getIdentity(user)`          | Given a `user`, retrieve its textual representation |
+| `getTenantIdentity(user)`    | Given a `user`, retireve its tenant identity |
 | `can(user, action, subject)` | Check if the given `user` can perform `action` on the `subject` |
 
 ## Development
