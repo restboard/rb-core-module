@@ -6,7 +6,7 @@ t.test("RbAuthProvider", async (t) => {
   t.test("calling `login` on base class", async (t) => {
     const provider = new RbAuthProvider();
     try {
-      await provider.login();
+      await provider.login({});
       t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(
@@ -21,6 +21,34 @@ t.test("RbAuthProvider", async (t) => {
     const provider = new RbAuthProvider();
     try {
       await provider.logout();
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
+    } catch (err) {
+      t.equal(
+        err.message,
+        ERR_NOT_IMPLEMENTED,
+        `should throw ${ERR_NOT_IMPLEMENTED}`
+      );
+    }
+  });
+
+  t.test("calling `recoverCredentials` on base class", async (t) => {
+    const provider = new RbAuthProvider();
+    try {
+      await provider.recoverCredentials({});
+      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
+    } catch (err) {
+      t.equal(
+        err.message,
+        ERR_NOT_IMPLEMENTED,
+        `should throw ${ERR_NOT_IMPLEMENTED}`
+      );
+    }
+  });
+
+  t.test("calling `activateOrResetCredentials` on base class", async (t) => {
+    const provider = new RbAuthProvider();
+    try {
+      await provider.activateOrResetCredentials({});
       t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
     } catch (err) {
       t.equal(

@@ -28,6 +28,26 @@ export class RbAuthProvider {
   }
 
   /**
+   * Attempt to recover user credentials providing a valid challenge response
+   *
+   * @param {Object} challenge - The response payload to the credentials recovery challenge
+   * @memberof RbAuthProvider
+   */
+  async recoverCredentials(challenge) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
+  }
+
+  /**
+   * Activate or reset existing user credentials
+   *
+   * @param {Object} payload - The activate / reset credentials payload
+   * @memberof RbAuthProvider
+   */
+  async activateOrResetCredentials(payload) {
+    throw new Error(ERR_NOT_IMPLEMENTED);
+  }
+
+  /**
    * Verify the current session is still active and refresh it
    *
    * @return {Promise<Object>} The authenticated session response

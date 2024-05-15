@@ -102,14 +102,16 @@ strategies.
 
 ### Methods
 
-| Signature                    | Description |
-| ---------------------------- | ----------- |
-| `login(credentials)`         | Attempt to log the user identified by the given `credentials` |
-| `logout()`                   | Terminate the current authenticated session |
-| `checkAuth()`                | Check if the current authenticated session is still valid |
-| `getIdentity(user)`          | Given a `user`, retrieve its textual representation |
-| `getTenantIdentity(user)`    | Given a `user`, retireve its tenant identity |
-| `can(user, action, subject)` | Check if the given `user` can perform `action` on the `subject` |
+| Signature                             | Description |
+| ------------------------------------- | ----------- |
+| `login(credentials)`                  | Attempt to log the user identified by the given `credentials` |
+| `logout()`                            | Terminate the current authenticated session |
+| `recoverCredentials(challenge)`       | Attempt to recover user credentials providing a valid `challenge` response |
+| `activateOrResetCredentials(payload)` | Activate or reset existing user credentials |
+| `checkAuth()`                         | Check if the current authenticated session is still valid |
+| `getIdentity(user)`                   | Given a `user`, retrieve its textual representation |
+| `getTenantIdentity(user)`             | Given a `user`, retireve its tenant identity |
+| `can(user, action, subject)`          | Check if the given `user` can perform `action` on the `subject` |
 
 ## Development
 
