@@ -103,15 +103,7 @@ t.test("RbAuthProvider", async (t) => {
 
   t.test("calling `can` on base class", async (t) => {
     const provider = new RbAuthProvider();
-    try {
-      await provider.can({}, "test");
-      t.fail(`should throw ${ERR_NOT_IMPLEMENTED}`);
-    } catch (err) {
-      t.equal(
-        err.message,
-        ERR_NOT_IMPLEMENTED,
-        `should throw ${ERR_NOT_IMPLEMENTED}`
-      );
-    }
+    const res = provider.can({}, "test");
+    t.ok(res, "should always success");
   });
 });

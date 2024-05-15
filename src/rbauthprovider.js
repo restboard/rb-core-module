@@ -88,11 +88,11 @@ export class RbAuthProvider {
    * @param {Object} user - The user to check the authorization for
    * @param {String} action - The action to be authorized
    * @param {Object|Number|String} [subject=null] - The (optional) target of the action
-   * @return {Promise<Boolean>} True if the user is authorized to perform the action, false otherwise
+   * @return {Boolean} True if the user is authorized to perform the action, false otherwise
    * @memberof RbAuthProvider
    */
-  async can(user, action, subject = null) {
-    throw new Error(ERR_NOT_IMPLEMENTED);
+  can(user, action, subject = null) {
+    return true;
   }
 }
 
