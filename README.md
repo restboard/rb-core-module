@@ -58,13 +58,14 @@ const me = await users.getOne(1)
 | Signature                      | Description |
 | ------------------------------ | ----------- |
 | `getKey(instance)`             | Retrieve the primary key of the given resource `instance` |
-| `stringify(instance)`          | Render a string representantion of the given resource `instance` |
-| `getMany(params)`              | Retrieve a list of resource instances according to the given `params` |
-| `getOne(key, params)`          | Retrieve a single resource instance, identified by `key` and `params` |
-| `updateOne(key, data, params)` | Update a single resource instance, identified by `key` and `params`, with the given `data` |
-| `updateMany(data, params)`     | Update multiple resource instances according to `data` and `params` |
-| `deleteOne(key, params)`       | Delete a single resource instance identified by `key` and `params` |
-| `deleteMany(keys, params)`     | Delete multiple resource instances identified by the `keys` array and `params` |
+| `stringify(instance)`          | Render a string representation of the given resource `instance` |
+| `getOne(key, params)`          | Retrieve a single resource instance, identified by `key` and (optional) `params` |
+| `getMany(params)`              | Retrieve a list of resource instances according to the given (optional) `params` |
+| `createOne(data, params)`      | Insert a single resource instance with the given `data` and identified by (optional) `params` |
+| `updateOne(key, data, params)` | Update a single resource instance, identified by `key` and (optional) `params`, with the given `data` |
+| `updateMany(data, params)`     | Update multiple resource instances according to `data` and (optional) `params` |
+| `deleteOne(key, params)`       | Delete a single resource instance identified by `key` and (optional) `params` |
+| `deleteMany(keys, params)`     | Delete multiple resource instances identified by the `keys` array and (optional) `params` |
 | `getRelation(key, name, opts)` | Return the related resource identified by `name`, scoped to the instance identified by `key`. For `opts` see **Relation options** |
 | `getActions()`                 | Return a dictionary of resource actions, where each action is bound to the resource |
 | `setDirty()`                   | Set the resource `lastUpdate` with the current timestamp and notify registered listeners |
@@ -87,8 +88,9 @@ third-party API using the correct protocol and dialect.
 
 | Signature                                    | Description                   |
 | -------------------------------------------- | ----------------------------- |
-| `getMany(resourcePath, params)`              | See [RbResource](#RbResource) |
 | `getOne(resourcePath, key, params)`          | See [RbResource](#RbResource) |
+| `getMany(resourcePath, params)`              | See [RbResource](#RbResource) |
+| `createOne(resourcePath, data, params)`      | See [RbResource](#RbResource) |
 | `updateOne(resourcePath, key, data, params)` | See [RbResource](#RbResource) |
 | `updateMany(resourcePath, data, params)`     | See [RbResource](#RbResource) |
 | `deleteOne(resourcePath, key, params)`       | See [RbResource](#RbResource) |
