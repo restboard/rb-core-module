@@ -74,9 +74,9 @@ const me = await users.getOne(1)
 
 ### Relation options
 
-| Name                  | Description                                      | Default |
-| --------------------- | ------------------------------------------------ | ------- |
-| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty | `true`  |
+| Name                  | Description                                                | Default |
+| --------------------- | ---------------------------------------------------------- | ------- |
+| `notifyParentOnDirty` | If `true` mark also the parent resource as dirty on change | `true`  |
 
 ## RbDataProvider
 
