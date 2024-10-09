@@ -1,6 +1,6 @@
 {
   "name": "rb-core-module",
-  "version": "0.32.0",
+  "version": "0.32.1",
   "description": "The Restboard core module",
   "main": "src/index.js",
   "type": "module",
