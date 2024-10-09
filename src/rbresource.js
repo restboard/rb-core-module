@@ -99,17 +99,18 @@ export class RbResource {
     this.updateSchema = updateSchema || _baseJsonSchema;
 
     this.actions = actions || {};
+    this.methods = methods || {};
 
     this.ui = _createUIConfig(ui || {});
 
     this.listeners = [...(listeners || [])];
 
     // Extend the base resource API with additional user-defined methods
-    const funcs = Object.getOwnPropertyNames(methods || {}).filter(
-      (item) => typeof methods[item] === "function"
+    const funcs = Object.getOwnPropertyNames(this.methods).filter(
+      (item) => typeof this.methods[item] === "function"
     );
     for (const funcName of funcs) {
-      this[funcName] = methods[funcName].bind(this);
+      this[funcName] = (...args) => this.methods[funcName].call(this, ...args);
     }
 
     // This attribute is used to track the last write
@@ -259,6 +260,11 @@ export class RbResource {
    * a specific instance of the source resource and a sub-resource.
    *
    * e.g. users.getRelation(1, attachments) -> /users/1/attachments
+   *
+   * WARNING: related resources are NOT memoized, so calling this method
+   * multiple times with the same arguments will create multiple instances
+   * of the same related resource. This is by design, as it allows a better
+   * control over the lifecycle of the related resource.
    *
    * @param {Number|String} key - The identifier of the resource instance
    * @param {RbResource} resource - The related resource
